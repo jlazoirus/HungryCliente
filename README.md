@@ -1,6 +1,6 @@
 CRNA  
 + typescript+ Redux + redux observable + React navigation 
-+ Nativebase + Styled components 
++ Nativebase + Styled components
 + Firebase
 
 # Guides
@@ -12,5 +12,4 @@ CRNA
 * https://docs.nativebase.io/
 
 # to Run: open to terminals
-* 1rst terminal: npm run dev (typescirpt: tsc -w , dev and watch mode)
-* 2nd terminal : npm start (expo)
+* npm run dev
