@@ -18,7 +18,8 @@
        "suppressImplicitAnyIndexErrors": true,
        "noUnusedLocals": true,
        "skipLibCheck": true,
-       "moduleResolution": "node"
+       "moduleResolution": "node",
+       "typeRoots": ["node_modules/@types", "custom_typings"]
    },
    "exclude": [
        "App.js",
