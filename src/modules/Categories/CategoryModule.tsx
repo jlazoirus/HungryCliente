@@ -1,8 +1,8 @@
-import { TabNavigator } from "react-navigation";
+import {  createBottomTabNavigator } from "react-navigation";
 import CategoryList from "./CategoryList";
 
 
-const CategoryModule = TabNavigator({
+const CategoryModule = createBottomTabNavigator({
   List: { screen: CategoryList },
 });
 

@@ -1,4 +1,4 @@
-import { createStackNavigator, createTabNavigator, createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator, createDrawerNavigator, createSwitchNavigator } from 'react-navigation';
 
 import Login from './modules/User/Login';
 import { HOCHeader } from './modules/shared/Header';
@@ -13,7 +13,7 @@ const ScreenHeader = (title) => ({navigation}) => ({
     header: HOCHeader(title)
 });
 
-const RoutesApp = createTabNavigator({
+const RoutesApp = createSwitchNavigator({
     // First Level
 
     splash: {
@@ -21,7 +21,7 @@ const RoutesApp = createTabNavigator({
     },
     login: {
         // Second Level
-        screen: createTabNavigator({
+        screen: createStackNavigator({
             Login: {
               screen: Login,
             },
@@ -47,10 +47,6 @@ const RoutesApp = createTabNavigator({
               screen: Logout
             }
         })
-    }
-}, {
-    navigationOptions: {
-        tabBarVisible: false
     }
 }) ;
   

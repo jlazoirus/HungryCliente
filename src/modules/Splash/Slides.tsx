@@ -15,6 +15,15 @@ const SlideText = styled(Text)`
     font-size: 30px;
 `;
 
+type Props = {
+    data: any[],
+    onComplete: Function
+};
+
+type State = {
+};
+
+
 class Slides extends React.Component<Props, State> {
 
     constructor(props) {
@@ -52,10 +61,3 @@ class Slides extends React.Component<Props, State> {
 
 export default Slides;
 
-type Props = {
-    data: any[],
-    onComplete: Function
-};
-
-type State = {
-};

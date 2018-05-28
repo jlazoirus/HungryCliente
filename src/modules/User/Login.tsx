@@ -16,7 +16,7 @@ type State = {
   password: string
 };
 
-class Login extends React.Component<Props, State> {
+class Login extends React.PureComponent<Props, State> {
 
   state = {
     email: 'test@test.com',
