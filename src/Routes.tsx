@@ -1,38 +1,42 @@
-import { StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation';
-import SplashScreen from './modules/Splash/SplashScreen';
+import { createStackNavigator, createTabNavigator, createDrawerNavigator } from 'react-navigation';
+
 import Login from './modules/User/Login';
 import { HOCHeader } from './modules/shared/Header';
 import Register from './modules/User/Register';
 import ExpenseModule from './modules/Expenses/ExpensesModule';
 import CategoryModule from './modules/Categories/CategoryModule';
 import Logout from './modules/User/Logout';
+import SplashScreen from './modules/Splash/SplashScreen';
   
 const ScreenHeader = (title) => ({navigation}) => ({
     title: title,
     header: HOCHeader(title)
 });
 
-const RoutesApp = TabNavigator({
+const RoutesApp = createTabNavigator({
     // First Level
+
     splash: {
-        screen: SplashScreen
+        screen: SplashScreen,
     },
     login: {
         // Second Level
-        screen: StackNavigator({
+        screen: createTabNavigator({
             Login: {
               screen: Login,
-              navigationOptions: ScreenHeader('Login'),
             },
             Register: {
               screen: Register,
-              navigationOptions: ScreenHeader('Create Account'),
             }
-          })
+          }, {
+            navigationOptions: {
+                tabBarVisible: false
+            }
+        })
     },
     App: {
         // Second level
-        screen: DrawerNavigator({
+        screen: createDrawerNavigator({
             Expenses: {
               screen: ExpenseModule,
             },
