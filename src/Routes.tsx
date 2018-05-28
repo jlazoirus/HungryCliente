@@ -9,8 +9,7 @@ import ExpenseList from './modules/Expenses/ExpenseList';
   
 
 const RoutesApp = createSwitchNavigator({
-    // First Level
-    splash: SplashScreen,
+    SplashScreen,
     auth: createStackNavigator({
         Login,
         Register
@@ -26,7 +25,7 @@ const RoutesApp = createSwitchNavigator({
             List: CategoryList
         }),
         Logout
-    })
-}) ;
+     })
+});
   
-  export default RoutesApp;
+export default RoutesApp;
