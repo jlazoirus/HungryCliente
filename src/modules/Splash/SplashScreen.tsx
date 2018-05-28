@@ -20,7 +20,7 @@ class SplashScreen extends React.Component<Props, State> {
   };
 
   completeSlides = () => {
-    this.props.navigation.navigate('login');
+    this.props.navigation.navigate('auth');
   }
   
 

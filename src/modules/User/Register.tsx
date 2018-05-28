@@ -31,7 +31,7 @@ class Register extends React.Component<Props, State> {
 
   componentDidUpdate () {
     if (this.props.user) {
-      this.props.navigation.navigate('App');
+      this.props.navigation.navigate('main');
     }
   }
 
