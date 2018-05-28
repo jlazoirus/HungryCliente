@@ -1,8 +1,8 @@
-import { TabNavigator } from "react-navigation";
+import { createBottomTabNavigator } from "react-navigation";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 
-const ExpenseModule = TabNavigator({
+const ExpenseModule = createBottomTabNavigator({
   Home: { screen: ExpenseForm },
   Settings: { screen: ExpenseList },
 });

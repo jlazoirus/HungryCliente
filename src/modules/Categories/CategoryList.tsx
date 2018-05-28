@@ -27,16 +27,5 @@ class CategoryList extends React.Component<Props, State> {
   }
 }
 
-const mapsStateToProps = (state: any) => {
-  return {
-  };
-};
 
-const mapDispatchToProps = (dispatch: Function) => {
-  return {
-    actions: {
-    }
-  }
-};
-
-export default connect(mapsStateToProps, mapDispatchToProps)(CategoryList);
+export default CategoryList;
