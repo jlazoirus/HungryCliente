@@ -1,53 +1,32 @@
-import { createStackNavigator, createDrawerNavigator, createSwitchNavigator } from 'react-navigation';
-
+import { createStackNavigator, createDrawerNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
 import Login from './modules/User/Login';
-import { HOCHeader } from './modules/shared/Header';
 import Register from './modules/User/Register';
-import ExpenseModule from './modules/Expenses/ExpensesModule';
-import CategoryModule from './modules/Categories/CategoryModule';
 import Logout from './modules/User/Logout';
 import SplashScreen from './modules/Splash/SplashScreen';
+import CategoryList from './modules/Categories/CategoryList';
+import ExpenseForm from './modules/Expenses/ExpenseForm';
+import ExpenseList from './modules/Expenses/ExpenseList';
   
-const ScreenHeader = (title) => ({navigation}) => ({
-    title: title,
-    header: HOCHeader(title)
-});
 
 const RoutesApp = createSwitchNavigator({
     // First Level
-
-    splash: {
-        screen: SplashScreen,
-    },
-    login: {
-        // Second Level
-        screen: createStackNavigator({
-            Login: {
-              screen: Login,
-            },
-            Register: {
-              screen: Register,
-            }
-          }, {
-            navigationOptions: {
-                tabBarVisible: false
-            }
-        })
-    },
-    App: {
-        // Second level
-        screen: createDrawerNavigator({
-            Expenses: {
-              screen: ExpenseModule,
-            },
-            Categories: {
-              screen: CategoryModule,
-            },
-            Logout: {
-              screen: Logout
-            }
-        })
-    }
+    splash: SplashScreen,
+    auth: createStackNavigator({
+        Login,
+        Register
+    }, {
+        headerMode: 'none'
+    }),
+    main: createDrawerNavigator({
+        Expenses: createBottomTabNavigator({
+            Form: ExpenseForm,
+            List: ExpenseList,
+        }),
+        Categories: createBottomTabNavigator({
+            List: CategoryList
+        }),
+        Logout
+    })
 }) ;
   
   export default RoutesApp;

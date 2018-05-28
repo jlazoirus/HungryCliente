@@ -17,10 +17,10 @@ type State = {
 
 class Logout extends React.Component<Props, State> {
 
-  componentDidUpdate () {
-   if (!this.props.user) {
-    this.props.navigation.navigate('login');
-   }
+  componentDidUpdate() {
+    if (!this.props.user) {
+      this.props.navigation.navigate('auth');
+     }
   }
 
   render() {
