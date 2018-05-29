@@ -13,3 +13,15 @@ CRNA
 
 # to Run: open to terminals
 * npm run dev
+
+
+
+# Usefull LInks
+* https://www.styled-components.com/docs/basics#getting-started
+* https://facebook.github.io/react-native/docs/button.html
+* https://react-native-training.github.io/react-native-elements/docs/0.19.0/forms.html
+* https://avocode.com/nachos-ui/docs/#!/Showcase/Button
+* https://docs.nativebase.io/Components.html#checkbox-headref
+* https://ionicons.com/
+* https://medium.com/@drorbiran/the-full-react-native-layout-cheat-sheet-a4147802405c
+* https://github.com/vhpoet/react-native-styling-cheat-sheet
