@@ -43,7 +43,7 @@ export default class RestaurantTeaser extends React.Component<Props, any> {
         <S.Image>
           <Image
             style={{ width: 100, height: 100 }}
-            source={{ uri: "https://upx.cz/BsN" }}
+            source={{ uri: "https://upx.cz/56w" }}
           />
         </S.Image>
         <S.Content>
