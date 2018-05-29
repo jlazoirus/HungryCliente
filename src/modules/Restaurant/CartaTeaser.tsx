@@ -12,7 +12,7 @@ const S = {
         border-bottom-width: 1px;
     `,
     Image: styled(View)`
-        flex: 2
+        flex: 3
     `,
     Content: styled(View)`
         flex: 5;

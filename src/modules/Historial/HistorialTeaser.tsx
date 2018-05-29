@@ -12,7 +12,7 @@ const S = {
         border-bottom-width: 1px;
     `,
     Image: styled(View)`
-        flex: 2
+        flex: 3
     `,
     Content: styled(View)`
         flex: 5;
@@ -47,7 +47,7 @@ export default class HistorialTeaser extends React.Component<Props, any> {
           <Text>Descripcion del pedido</Text>
         </S.Content>
         <S.ViewMore>
-          <Icon name="help-with-circle" />
+          <Icon name="ios-help-circle" />
         </S.ViewMore>
       </S.Card>
     );

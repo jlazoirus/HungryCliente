@@ -98,8 +98,8 @@ class Login extends React.PureComponent<Props, State> {
               source={require("../../../assets/images/hungrylogo.png")}
             />
           </SectionImage>
-          <rn.View style={{ margin: 40 }}>
-            <Item regular style={{ margin: 20 }}>
+          <rn.View style={{ margin: 20 }}>
+            <Item regular style={{ margin: 10 }}>
               <Input
                 style={{ color: "white", fontWeight: "bold" }}
                 placeholder="User"
@@ -108,7 +108,7 @@ class Login extends React.PureComponent<Props, State> {
                 value={this.state.email}
               />
             </Item>
-            <Item regular last style={{ margin: 20 }}>
+            <Item regular last style={{ margin: 10 }}>
               <Input
                 style={{ color: "white", fontWeight: "bold" }}
                 placeholder="Password"
@@ -129,7 +129,7 @@ class Login extends React.PureComponent<Props, State> {
             </na.Button>
           </rn.View>
 
-          <rn.View style={{ marginTop: 50 }}>
+          <rn.View style={{ marginTop: 30 }}>
             <na.A
               style={{ fontSize: 20, textAlign: "center" }}
               onPress={this.goToRegister}
