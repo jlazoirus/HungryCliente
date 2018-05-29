@@ -5,6 +5,7 @@ import { View, TouchableHighlight, Text } from "react-native";
 import { IStore } from '../../store/reducers/index';
 import { actionUserLogout } from "../../store/actions/userActions";
 import { NavigationScreenProp } from 'react-navigation';
+import { Routes } from "../../Routes";
 
 type Props = {
     actions: any,
@@ -19,7 +20,7 @@ class Logout extends React.Component<Props, State> {
 
   componentDidUpdate() {
     if (!this.props.user) {
-      this.props.navigation.navigate('auth');
+      this.props.navigation.navigate(Routes.auth);
      }
   }
 

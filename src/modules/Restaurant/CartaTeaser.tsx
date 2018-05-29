@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text, View, Image } from "react-native";
-import { H4 } from "nachos-ui";
+import { H4, A } from "nachos-ui";
 import { Icon } from "native-base";
 import styled from "styled-components";
 
@@ -24,19 +24,7 @@ const S = {
     `,
 };
 
-type Props = {
-  onPressTeaser: Function,
-  key: any
-}
-
-export default class RestaurantTeaser extends React.Component<Props, any> {
-
-  onPressTeaser = () => {
-    if (this.props.onPressTeaser) {
-      this.props.onPressTeaser();
-    }
-  }
-
+export default class PlateTeaser extends React.Component {
   render() {
     return (
       <S.Card>
@@ -47,13 +35,13 @@ export default class RestaurantTeaser extends React.Component<Props, any> {
           />
         </S.Image>
         <S.Content>
-          <H4>NOMBRE DEL LOCAL</H4>
-          <Text>Ubicacion o direccion</Text>
-          <Text>Tipo de Comida</Text>
-          <Text>Horario</Text>
+          <H4>NOMBRE DEL PLATO</H4>
+          <Text>Description ... </Text>
+          <Text>Precio</Text>
+          <A>Ingredientes >>> </A>
         </S.Content>
         <S.ViewMore>
-          <Icon name="arrow-dropright" onPress={this.onPressTeaser} />
+          <Icon name="add-circle" active />
         </S.ViewMore>
       </S.Card>
     );

@@ -9,6 +9,7 @@ import { NavigationScreenProp } from "react-navigation";
 import { IStore } from "../../store/reducers/index";
 import { actionUserFetch } from "../../store/actions/userActions";
 import styled from "styled-components";
+import { Routes } from '../../Routes';
 
 // https://avocode.com/nachos-ui/docs/#!/Showcase/Spinner
 // https://react-native-training.github.io/react-native-elements/docs/0.19.0/button.html
@@ -74,7 +75,7 @@ class Login extends React.PureComponent<Props, State> {
   };
 
   goToRegister = () => {
-    this.props.navigation.navigate("Register");
+    this.props.navigation.navigate(Routes.Register);
   };
 
   goToRecoveryPassword = () => {
@@ -83,7 +84,7 @@ class Login extends React.PureComponent<Props, State> {
 
   componentDidUpdate() {
     if (this.props.user) {
-      this.props.navigation.navigate("main");
+      this.props.navigation.navigate(Routes.main);
     }
   }
 
