@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Text, View, Image } from "react-native";
-import { H4, A } from "nachos-ui";
+import { H4 } from "nachos-ui";
 import { Icon } from "native-base";
 import styled from "styled-components";
 
@@ -24,24 +24,30 @@ const S = {
     `,
 };
 
-export default class PlateTeaser extends React.Component {
+type Props = {
+  key: any
+}
+
+export default class HistorialTeaser extends React.Component<Props, any> {
+
+
   render() {
     return (
       <S.Card>
         <S.Image>
           <Image
             style={{ width: 100, height: 100 }}
-            source={{ uri: "https://upx.cz/BsN" }}
+            source={{ uri: "https://upx.cz/56w" }}
           />
         </S.Image>
         <S.Content>
-          <H4>NOMBRE DEL PLATO</H4>
-          <Text>Description ... </Text>
-          <Text>Precio</Text>
-          <A>Ingredientes >>> </A>
+          <H4>NOMBRE DEL LOCAL</H4>
+          <Text>Fecha</Text>
+          <Text>Importe</Text>
+          <Text>Descripcion del pedido</Text>
         </S.Content>
         <S.ViewMore>
-          <Icon name="add-circle" active />
+          <Icon name="ios-help-circle" />
         </S.ViewMore>
       </S.Card>
     );

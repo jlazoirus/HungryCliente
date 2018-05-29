@@ -5,6 +5,7 @@ import Logout from './modules/User/Logout';
 import SplashScreen from './modules/Splash/SplashScreen';
 import RestaurantList from './modules/Restaurant/RestaurantList';
 import Carta from './modules/Restaurant/Carta';
+import Historial from './modules/Historial/historialList'
 
 export const Routes = {
     splash: 'SplashScreen',
@@ -16,6 +17,7 @@ export const Routes = {
     RestaurantList: 'RestaurantList',
     Carta: 'Carta',
     cerrar_session: 'Cerrar Session',
+    Historial: 'Historial',
 }
 
 const RoutesApp = createSwitchNavigator({
@@ -31,6 +33,7 @@ const RoutesApp = createSwitchNavigator({
             [Routes.RestaurantList]: RestaurantList,
             [Routes.Carta]: Carta,
         }, { headerMode: 'none'}),
+        [Routes.Historial]: Historial,
         [Routes.cerrar_session]: Logout
      })
 });
