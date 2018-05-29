@@ -1,6 +1,7 @@
 import * as React from "react";
 import Slides from "./Slides";
 import { NavigationScreenProp } from "react-navigation";
+import { Routes } from '../../Routes';
 
 type Props = {
     navigation: NavigationScreenProp<any, any>
@@ -20,7 +21,7 @@ class SplashScreen extends React.Component<Props, State> {
   };
 
   completeSlides = () => {
-    this.props.navigation.navigate('auth');
+    this.props.navigation.navigate(Routes.auth);
   }
   
 

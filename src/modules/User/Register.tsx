@@ -6,6 +6,7 @@ import { View, Text } from 'react-native';
 import { Icon, Input, Item, Content } from "native-base";
 import { Avatar } from "react-native-elements";
 import { Checkbox, Button } from 'nachos-ui';
+import { Routes } from '../../Routes';
 
 type Props = {
     actions: any,
@@ -41,7 +42,7 @@ class Register extends React.Component<Props, State> {
 
   componentDidUpdate () {
     if (this.props.user) {
-      this.props.navigation.navigate('main');
+      this.props.navigation.navigate(Routes.main);
     }
   }
 

@@ -2,10 +2,11 @@ import * as React from 'react'
 import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
 import { Icon} from 'native-base';
 import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5 } from 'nachos-ui';
+import * as rne from 'react-native-elements';
 import styled from "styled-components";
-import RestaurantTeaser from './RestaurantTeaser';
+
 import { NavigationScreenProp } from 'react-navigation';
-import { Routes } from '../../Routes';
+import PlateTeaser from './CartaTeaser';
 const screen_width = Dimensions.get("window").width;
 
 // <github project>/nachos-ui/src/SegmentedControlButton.js
@@ -41,7 +42,11 @@ const S = {
     Title: styled(Text)`
         font-size: 20px;
         padding: 10px;
-
+    `,
+    Options: styled(View)`
+        flex-direction: row;
+        justify-content: space-around;
+        margin-bottom: 10px;
     `,
 }
 
@@ -49,7 +54,7 @@ type Props = {
   navigation: NavigationScreenProp<any>;
 }
 
-export default class RestaurantList extends React.Component<Props, any> {
+export default class Carta extends React.Component<Props, any> {
 
     constructor(props) {
         super(props)
@@ -60,20 +65,16 @@ export default class RestaurantList extends React.Component<Props, any> {
         list:[1,2,3,4,5,6,7]
     }
 
-    openMenu = () => {
-        this.props.navigation.openDrawer();
-    }
-
-    openCarta = () => {
-        this.props.navigation.navigate(Routes.Carta);
+    onPressArrowBack = () => {
+        this.props.navigation.goBack();
     }
 
   render() {
     return (
       <S.Layout>
         <S.Header>
-            <Icon name='menu' onPress={this.openMenu}/>
-            <Icon name='search' />
+            <Icon name='arrow-back' active onPress={this.onPressArrowBack}/>
+            <Icon name='cart' active />
         </S.Header>
 
         <View style={{width: screen_width, height: 200}}>
@@ -88,17 +89,25 @@ export default class RestaurantList extends React.Component<Props, any> {
             />
         </View>
 
-        <S.Title>LUGARES CERCANOS A TI</S.Title>
-        <Switcher onChange={filter => this.setState({ filter })} direction='row'>
-          <SegmentedControlButton theme={SegmentTheme} value='precio' text='Precio' />
-          <SegmentedControlButton theme={SegmentTheme} value='cercania' text='Cercania' />
-          <SegmentedControlButton theme={SegmentTheme} value='rating' text='Rating' />
-          <SegmentedControlButton theme={SegmentTheme} value='tiempo' text='Tiempo' />
-        </Switcher>
-
+        <S.Title>Nombre del Negocio</S.Title>
+        
         <ScrollView>
+            <S.Options>
+                <View>
+                    <rne.Icon raised name='bicycle' type='font-awesome' color='#aa072a' onPress={() => console.log('hello')} />
+                    <Text>Para Llevar</Text>
+                </View>
+                <View>
+                    <rne.Icon raised name='calendar' type='font-awesome' color='#aa072a' onPress={() => console.log('hello')} />
+                    <Text>Reservar</Text>
+                </View>
+                <View>
+                    <rne.Icon raised name='paper-plane' type='font-awesome' color='#aa072a' onPress={() => console.log('hello')} />
+                    <Text>Delivery</Text>
+                </View>
+            </S.Options>
             { this.state.list.map((item) => {
-                return <RestaurantTeaser key={item} onPressTeaser={this.openCarta} />
+                return <PlateTeaser key={item} />
             } )}
         </ScrollView>
 
