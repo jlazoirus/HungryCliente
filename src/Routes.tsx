@@ -6,7 +6,7 @@ import SplashScreen from './modules/Splash/SplashScreen';
 import RestaurantList from './modules/Restaurant/RestaurantList';
 import Carta from './modules/Restaurant/Carta';
 import Historial from './modules/Historial/historialList';
-import Carrito from './modules/Carrito/CarritoList'
+import Carrito from './modules/Carrito/CarritoList';
 
 export const Routes = {
     splash: 'SplashScreen',
