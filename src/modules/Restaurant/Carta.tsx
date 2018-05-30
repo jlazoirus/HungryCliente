@@ -4,6 +4,7 @@ import { Icon} from 'native-base';
 import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5 } from 'nachos-ui';
 import * as rne from 'react-native-elements';
 import styled from "styled-components";
+import { Routes } from '../../Routes';
 
 import { NavigationScreenProp } from 'react-navigation';
 import PlateTeaser from './CartaTeaser';
@@ -69,18 +70,22 @@ export default class Carta extends React.Component<Props, any> {
         this.props.navigation.goBack();
     }
 
+    onPressCart = () => {
+        this.props.navigation.navigate(Routes.Carrito);
+    }
+
   render() {
     return (
       <S.Layout>
         <S.Header>
             <Icon name='arrow-back' active onPress={this.onPressArrowBack}/>
-            <Icon name='cart' active />
+            <Icon name='cart' active onPress={this.onPressCart}/>
         </S.Header>
 
         <View style={{width: screen_width, height: 200}}>
             <Carousel
                 width={screen_width}
-                height={200}
+                height={100}
                 images={[
                     `https://placehold.it/${screen_width}/311112`,
                     `https://placehold.it/${screen_width}/59C480`,

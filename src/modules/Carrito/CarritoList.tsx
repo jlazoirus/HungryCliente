@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
 import { Icon} from 'native-base';
-import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5 } from 'nachos-ui';
+import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5, Button } from 'nachos-ui';
 import styled from "styled-components";
-import RestaurantTeaser from './RestaurantTeaser';
+import CartItem from './CarritoItem';
 import { NavigationScreenProp } from 'react-navigation';
 import { Routes } from '../../Routes';
 const screen_width = Dimensions.get("window").width;
@@ -43,13 +43,27 @@ const S = {
         padding: 10px;
 
     `,
+    Card: styled(View)`
+        flex-direction: row;
+        padding: 10px;
+        border-bottom-color: #aa072a;
+        border-bottom-width: 1px;
+    `,
+    Content: styled(View)`
+        flex: 4;
+        padding-left: 10px;
+    `,
+    Total: styled(View)`
+        flex: 3;
+        justify-content: right;
+    `,
 }
 
 type Props = {
   navigation: NavigationScreenProp<any>;
 }
 
-export default class RestaurantList extends React.Component<Props, any> {
+export default class CarritoList extends React.Component<Props, any> {
 
     constructor(props) {
         super(props)
@@ -60,8 +74,8 @@ export default class RestaurantList extends React.Component<Props, any> {
         list:[1,2,3,4,5,6,7]
     }
 
-    openMenu = () => {
-        this.props.navigation.openDrawer();
+    onPressArrowBack = () => {
+        this.props.navigation.goBack();
     }
 
     openCarta = () => {
@@ -72,38 +86,26 @@ export default class RestaurantList extends React.Component<Props, any> {
     return (
       <S.Layout>
         <S.Header>
-            <Icon name='menu' onPress={this.openMenu}/>
-            <Icon name='search' />
+            <Icon name='arrow-back' onPress={this.onPressArrowBack}/>
         </S.Header>
 
-        <View style={{width: screen_width, height: 200}}>
-            <Carousel
-                width={screen_width}
-                height={100}
-                images={[
-                    `https://placehold.it/${screen_width}/311112`,
-                    `https://placehold.it/${screen_width}/59C480`,
-                    `https://placehold.it/${screen_width}/546C80`,
-                ]}
-            />
-        </View>
-
-        <S.Title>LUGARES CERCANOS A TI</S.Title>
-        <Switcher onChange={filter => this.setState({ filter })} direction='row'>
-          <SegmentedControlButton theme={SegmentTheme} value='precio' text='Precio' />
-          <SegmentedControlButton theme={SegmentTheme} value='cercania' text='Cercania' />
-          <SegmentedControlButton theme={SegmentTheme} value='rating' text='Rating' />
-          <SegmentedControlButton theme={SegmentTheme} value='tiempo' text='Tiempo' />
-        </Switcher>
+        <S.Title>Carrito de Compras</S.Title>
 
         <ScrollView>
             { this.state.list.map((item) => {
-                return <RestaurantTeaser key={item} onPressTeaser={this.openCarta} />
+                return <CartItem key={item} onPressTeaser={this.openCarta} />
             } )}
         </ScrollView>
-
+        <S.Card>
+        <S.Content>
+            <H4>Total</H4>
+          </S.Content>
+          <S.Total>
+          <Text>S/.99</Text>
+          </S.Total>
+          <Button>Ir a pagar</Button>
+        </S.Card>
       </S.Layout>
     )
   }
 }
-
