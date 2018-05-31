@@ -5,7 +5,7 @@ import Logout from './modules/User/Logout';
 import SplashScreen from './modules/Splash/SplashScreen';
 import RestaurantList from './modules/Restaurant/RestaurantList';
 import Carta from './modules/Restaurant/Carta';
-import Historial from './modules/Historial/historialList';
+import Historial from './modules/Historial/HistorialList';
 import Carrito from './modules/Carrito/CarritoList';
 
 export const Routes = {

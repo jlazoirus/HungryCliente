@@ -55,7 +55,7 @@ const S = {
     `,
     Total: styled(View)`
         flex: 3;
-        justify-content: right;
+        justify-content: flex-end;
     `,
 }
 
@@ -103,7 +103,7 @@ export default class CarritoList extends React.Component<Props, any> {
           <S.Total>
           <Text>S/.99</Text>
           </S.Total>
-          <Button>Ir a pagar</Button>
+          <Button>OK</Button>
         </S.Card>
       </S.Layout>
     )

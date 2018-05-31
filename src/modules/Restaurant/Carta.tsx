@@ -82,7 +82,7 @@ export default class Carta extends React.Component<Props, any> {
             <Icon name='cart' active onPress={this.onPressCart}/>
         </S.Header>
 
-        <View style={{width: screen_width, height: 200}}>
+        <View style={{width: screen_width, height: 100}}>
             <Carousel
                 width={screen_width}
                 height={100}

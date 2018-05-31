@@ -76,7 +76,7 @@ export default class RestaurantList extends React.Component<Props, any> {
             <Icon name='search' />
         </S.Header>
 
-        <View style={{width: screen_width, height: 200}}>
+        <View style={{width: screen_width, height: 100}}>
             <Carousel
                 width={screen_width}
                 height={100}

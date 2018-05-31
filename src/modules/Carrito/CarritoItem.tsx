@@ -41,16 +41,15 @@ export default class CartItem extends React.Component<Props, any> {
             <A>Mas> </A>
           </S.Content>
           <S.ViewMore>
-          <Text>Precio</Text>
-          <Picker
-            iosHeader="Select one"
-            mode='dropdown'
-            selectedValue={this.state.selected1}>
-            <Item label='1' value='1' />
-            <Item label='2' value='2' />
-            <Item label='3' value='3' />
-            <Item label='4' value='4' />
-        </Picker>
+            <Text>Precio</Text>
+            <Picker
+              iosHeader="Select one"
+              mode='dropdown'>
+              <Item label='1' value='1' />
+              <Item label='2' value='2' />
+              <Item label='3' value='3' />
+              <Item label='4' value='4' />
+            </Picker>
           </S.ViewMore>
         </S.Card>
       );
