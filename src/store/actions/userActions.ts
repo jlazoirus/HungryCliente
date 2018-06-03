@@ -1,6 +1,6 @@
 import { Action, AnyAction } from "redux";
 
-export enum UserActionTypes {
+export const enum UserActionTypes {
     USER_FETCH = '[USER] USER_FETCH',
     USER_FETCH_ERROR = '[USER] USER_FETCH_ERROR',
     USER_FETCH_SUCCESS = '[USER] USER_FETCH_SUCCESS',
