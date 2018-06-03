@@ -8,26 +8,10 @@ import { Routes } from '../../Routes';
 
 import { NavigationScreenProp } from 'react-navigation';
 import PlateTeaser from './CartaTeaser';
+import { CartaActions } from '../../store/actions/CartaActions';
 const screen_width = Dimensions.get("window").width;
 
-// <github project>/nachos-ui/src/SegmentedControlButton.js
-const SegmentTheme = {
-    BUTTON_BACKGROUND: '#fff',
-    BUTTON_BORDER_WIDTH: 1,
-    BUTTON_BORDER_COLOR: '#aa072a',
-    BUTTON_BORDER_RADIUS: 5,
-    BUTTON_HEIGHT: 30,
-    BUTTON_FONT_COLOR: '#aa072a',
-    BUTTON_FONT_SIZE: 14,
-    BUTTON_FONT_WEIGHT: 'normal',
-    BUTTON_SELECTED_BACKGROUND: '#aa072a',
-    BUTTON_SELECTED_FONT_COLOR: '#fff',
-    BUTTON_SELECTED_BORDER_COLOR: '#aa072a',
-    BUTTON_ICON_SIZE: 15,
-    BUTTON_ICON_POSITION: 'left',
-    BUTTON_ICON_COLOR: '#aa072a',
-    BUTTON_ACTIVE_ICON_COLOR: '#fff',
-};
+
 
 const S = {
     Layout: styled(View)`
@@ -63,7 +47,13 @@ export default class Carta extends React.Component<Props, any> {
 
     state = {
         filter: 'precio',
-        list:[1,2,3,4,5,6,7]
+        list: []
+    }
+
+    componentDidMount() {
+        // If we don't need the list in other components 
+        // we can only make the request and then Update the state with the list
+        CartaActions.fetchCarta(123).then(list => this.setState({ list }))
     }
 
     onPressArrowBack = () => {
@@ -85,7 +75,7 @@ export default class Carta extends React.Component<Props, any> {
         <View style={{width: screen_width, height: 200}}>
             <Carousel
                 width={screen_width}
-                height={100}
+                height={200}
                 images={[
                     `https://placehold.it/${screen_width}/311112`,
                     `https://placehold.it/${screen_width}/59C480`,
@@ -111,9 +101,9 @@ export default class Carta extends React.Component<Props, any> {
                     <Text>Delivery</Text>
                 </View>
             </S.Options>
-            { this.state.list.map((item) => {
-                return <PlateTeaser key={item} />
-            } )}
+
+            { this.state.list.map((item: any) => <PlateTeaser key={item._id} data={item} /> )}
+
         </ScrollView>
 
       </S.Layout>

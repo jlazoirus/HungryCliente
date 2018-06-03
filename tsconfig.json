@@ -5,6 +5,7 @@
        "jsx": "react-native",
        "outDir": "build",
        "rootDir": "src",
+       "importHelpers": true,
        "allowSyntheticDefaultImports": true,
        "noImplicitAny": false,
        "experimentalDecorators": true,
