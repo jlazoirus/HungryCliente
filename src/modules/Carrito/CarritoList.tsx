@@ -55,7 +55,7 @@ const S = {
     `,
     Total: styled(View)`
         flex: 3;
-        justify-content: right;
+        justify-content: flex-end;
     `,
 }
 
