@@ -1,5 +1,8 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0"
+    "name": "hungry",
+    "slug": "hungry-app",
+    "sdkVersion": "25.0.0",
+    "privacy":"public"
   }
 }

@@ -6,7 +6,8 @@ import SplashScreen from './modules/Splash/SplashScreen';
 import CategoryList from './modules/Categories/CategoryList';
 import RestaurantList from './modules/Restaurant/RestaurantList';
 import Carta from './modules/Restaurant/Carta';
-import Historial from './modules/Historial/historialList'
+import Historial from './modules/Historial/historialList';
+import Carrito from './modules/Carrito/CarritoList';
 
 export const Routes = {
     splash: 'SplashScreen',
@@ -20,6 +21,7 @@ export const Routes = {
     CategoryList: 'Categorías',
     cerrar_session: 'Cerrar Session',
     Historial: 'Historial',
+    Carrito: 'Carrito',
 }
 const RoutesApp = createSwitchNavigator({
     SplashScreen,
@@ -33,6 +35,7 @@ const RoutesApp = createSwitchNavigator({
         [Routes.Restaurantes]: createStackNavigator({
             [Routes.RestaurantList]: RestaurantList,
             [Routes.Carta]: Carta,
+            [Routes.Carrito]: Carrito,
         }, { headerMode: 'none'}),
         [Routes.Historial]: Historial,
         [Routes.CategoryList]: CategoryList,

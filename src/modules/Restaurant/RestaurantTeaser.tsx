@@ -26,6 +26,7 @@ const S = {
 
 type Props = {
   onPressTeaser: Function,
+  data: any,
   key: any
 }
 
@@ -43,14 +44,15 @@ export default class RestaurantTeaser extends React.Component<Props, any> {
         <S.Image>
           <Image
             style={{ width: 100, height: 100 }}
-            source={{ uri: "https://upx.cz/56w" }}
+            source={{ uri: this.props.data.picture, cache: 'only-if-cached'}}
+            
           />
         </S.Image>
         <S.Content>
-          <H4>NOMBRE DEL LOCAL</H4>
-          <Text>Ubicacion o direccion</Text>
-          <Text>Tipo de Comida</Text>
-          <Text>Horario</Text>
+          <H4>{this.props.data.company}</H4>
+          <Text>{this.props.data.address}</Text>
+          <Text>{this.props.data.foodType}</Text>
+          <Text>{this.props.data.hour}</Text>
         </S.Content>
         <S.ViewMore>
           <Icon name="arrow-dropright" onPress={this.onPressTeaser} />
