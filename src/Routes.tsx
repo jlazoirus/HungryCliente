@@ -1,8 +1,9 @@
-import { createStackNavigator, createDrawerNavigator, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator, createDrawerNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
 import Login from './modules/User/Login';
 import Register from './modules/User/Register';
 import Logout from './modules/User/Logout';
 import SplashScreen from './modules/Splash/SplashScreen';
+import CategoryList from './modules/Categories/CategoryList';
 import RestaurantList from './modules/Restaurant/RestaurantList';
 import Carta from './modules/Restaurant/Carta';
 import Historial from './modules/Historial/historialList';
@@ -17,16 +18,16 @@ export const Routes = {
     Restaurantes: 'Restaurantes',
     RestaurantList: 'RestaurantList',
     Carta: 'Carta',
+    CategoryList: 'Categorías',
     cerrar_session: 'Cerrar Session',
     Historial: 'Historial',
     Carrito: 'Carrito',
 }
-
 const RoutesApp = createSwitchNavigator({
-    [Routes.splash]: SplashScreen,
-    [Routes.auth]: createStackNavigator({
-        [Routes.Login]: Login,
-        [Routes.Register]: Register
+    SplashScreen,
+    auth: createStackNavigator({
+        Login,
+        Register
     }, {
         headerMode: 'none'
     }),
@@ -37,8 +38,9 @@ const RoutesApp = createSwitchNavigator({
             [Routes.Carrito]: Carrito,
         }, { headerMode: 'none'}),
         [Routes.Historial]: Historial,
+        [Routes.CategoryList]: CategoryList,
         [Routes.cerrar_session]: Logout
      })
 });
-  
+
 export default RoutesApp;
