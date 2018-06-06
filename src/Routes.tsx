@@ -1,4 +1,4 @@
-import { createStackNavigator, createDrawerNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createDrawerNavigator, createSwitchNavigator } from 'react-navigation';
 import Login from './modules/User/Login';
 import Register from './modules/User/Register';
 import Logout from './modules/User/Logout';
