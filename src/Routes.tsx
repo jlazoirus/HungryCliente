@@ -6,7 +6,7 @@ import SplashScreen from './modules/Splash/SplashScreen';
 import CategoryList from './modules/Categories/CategoryList';
 import RestaurantList from './modules/Restaurant/RestaurantList';
 import Carta from './modules/Restaurant/Carta';
-import Historial from './modules/Historial/historialList';
+import Historial from './modules/Historial/HistorialList';
 import Carrito from './modules/Carrito/CarritoList';
 import PaymentsList from './modules/Payments/PaymentList';
 import PaymentForm from './modules/Payments/PaymentForm';

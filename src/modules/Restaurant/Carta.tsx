@@ -1,18 +1,15 @@
 import * as React from 'react'
-import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
+import { View, Text, Dimensions, ScrollView } from 'react-native';
 import { Icon} from 'native-base';
-import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5 } from 'nachos-ui';
+import { Carousel } from 'nachos-ui';
 import * as rne from 'react-native-elements';
 import styled from "styled-components";
 import { Routes } from '../../Routes';
-
 import { NavigationScreenProp } from 'react-navigation';
 import PlateTeaser from './CartaTeaser';
 import { CartaActions } from '../../store/actions/CartaActions';
+
 const screen_width = Dimensions.get("window").width;
-
-
-
 const S = {
     Layout: styled(View)`
         flex: 1;
@@ -72,7 +69,7 @@ export default class Carta extends React.Component<Props, any> {
             <Icon name='cart' active onPress={this.onPressCart}/>
         </S.Header>
 
-        <View style={{width: screen_width, height: 200}}>
+        <View style={{width: screen_width, height: 100}}>
             <Carousel
                 width={screen_width}
                 height={200}

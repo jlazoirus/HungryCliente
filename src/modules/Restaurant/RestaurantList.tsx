@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
+import { View, Text, Dimensions, ScrollView } from 'react-native';
 import { Icon} from 'native-base';
-import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5 } from 'nachos-ui';
+import { Carousel, Switcher, SegmentedControlButton } from 'nachos-ui';
 import styled from "styled-components";
 import RestaurantTeaser from './RestaurantTeaser';
 import { NavigationScreenProp } from 'react-navigation';
@@ -81,10 +81,10 @@ class RestaurantList extends React.Component<Props, any> {
                 <Icon name='search' />
             </S.Header>
 
-            <View style={{width: screen_width, height: 200}}>
+            <View style={{width: screen_width, height: 100}}>
                 <Carousel
                     width={screen_width}
-                    height={200}
+                    height={100}
                     images={[
                         `https://placehold.it/${screen_width}/311112`,
                         `https://placehold.it/${screen_width}/59C480`,

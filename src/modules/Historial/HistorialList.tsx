@@ -27,7 +27,7 @@ type Props = {
   navigation: NavigationScreenProp<any>;
 }
 
-export default class RestaurantList extends React.Component<Props, any> {
+export default class HistorialList extends React.Component<Props, any> {
 
     constructor(props) {
         super(props)

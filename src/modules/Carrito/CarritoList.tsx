@@ -1,31 +1,11 @@
 import * as React from 'react'
-import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { Icon} from 'native-base';
-import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5, Button } from 'nachos-ui';
+import { Button, H4 } from 'nachos-ui';
 import styled from "styled-components";
 import CartItem from './CarritoItem';
 import { NavigationScreenProp } from 'react-navigation';
 import { Routes } from '../../Routes';
-const screen_width = Dimensions.get("window").width;
-
-// <github project>/nachos-ui/src/SegmentedControlButton.js
-const SegmentTheme = {
-    BUTTON_BACKGROUND: '#fff',
-    BUTTON_BORDER_WIDTH: 1,
-    BUTTON_BORDER_COLOR: '#aa072a',
-    BUTTON_BORDER_RADIUS: 5,
-    BUTTON_HEIGHT: 30,
-    BUTTON_FONT_COLOR: '#aa072a',
-    BUTTON_FONT_SIZE: 14,
-    BUTTON_FONT_WEIGHT: 'normal',
-    BUTTON_SELECTED_BACKGROUND: '#aa072a',
-    BUTTON_SELECTED_FONT_COLOR: '#fff',
-    BUTTON_SELECTED_BORDER_COLOR: '#aa072a',
-    BUTTON_ICON_SIZE: 15,
-    BUTTON_ICON_POSITION: 'left',
-    BUTTON_ICON_COLOR: '#aa072a',
-    BUTTON_ACTIVE_ICON_COLOR: '#fff',
-};
 
 const S = {
     Layout: styled(View)`
@@ -55,7 +35,7 @@ const S = {
     `,
     Total: styled(View)`
         flex: 3;
-        justify-content: right;
+        justify-content: flex-end;
     `,
 }
 
@@ -103,7 +83,7 @@ export default class CarritoList extends React.Component<Props, any> {
           <S.Total>
           <Text>S/.99</Text>
           </S.Total>
-          <Button>Ir a pagar</Button>
+          <Button>OK</Button>
         </S.Card>
       </S.Layout>
     )
