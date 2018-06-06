@@ -6,6 +6,9 @@ import styled from "styled-components";
 import CartItem from './CarritoItem';
 import { NavigationScreenProp } from 'react-navigation';
 import { Routes } from '../../Routes';
+import { IStore } from '../../store/reducers/index';
+import { connect } from 'react-redux';
+import { CarritoActions } from '../../store/actions/CarritoActions';
 
 const S = {
     Layout: styled(View)`
@@ -43,7 +46,7 @@ type Props = {
   navigation: NavigationScreenProp<any>;
 }
 
-export default class CarritoList extends React.Component<Props, any> {
+class CarritoList extends React.Component<Props, any> {
 
     constructor(props) {
         super(props)
@@ -89,3 +92,14 @@ export default class CarritoList extends React.Component<Props, any> {
     )
   }
 }
+const mapStateToProps = (state: IStore, ownProps) => ({
+    restaurants: state.restaurants
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    actions: {
+        getLocales: (filter) => dispatch(CarritoActions.getAll(filter))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarritoList);
