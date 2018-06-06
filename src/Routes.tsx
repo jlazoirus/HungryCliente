@@ -37,13 +37,14 @@ const RoutesApp = createSwitchNavigator({
         headerMode: 'none'
     }),
     [Routes.main]: createDrawerNavigator({
-        [Routes.Restaurantes]: createStackNavigator({
+        [Routes.CategoryList]: createStackNavigator({
+            [Routes.CategoryList]:CategoryList,
             [Routes.RestaurantList]: RestaurantList,
             [Routes.Carta]: Carta,
             [Routes.Carrito]: Carrito,
+            [Routes.PaymentsList]: PaymentsList,
         }, { headerMode: 'none'}),
         [Routes.Historial]: Historial,
-        [Routes.CategoryList]: CategoryList,
         [Routes.Payments]: createStackNavigator({
             [Routes.PaymentsList]: PaymentsList,
             [Routes.Payment]: PaymentForm,
