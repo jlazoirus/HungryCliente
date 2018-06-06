@@ -67,45 +67,6 @@ class RestaurantList extends React.Component<Props, any> {
         this.props.navigation.navigate(Routes.Carta);
     }
 
-<<<<<<< HEAD
-  render() {
-    return (
-      <S.Layout>
-        <S.Header>
-            <Icon name='menu' onPress={this.openMenu}/>
-            <Icon name='search' />
-        </S.Header>
-
-        <View style={{width: screen_width, height: 100}}>
-            <Carousel
-                width={screen_width}
-                height={100}
-                images={[
-                    `https://placehold.it/${screen_width}/311112`,
-                    `https://placehold.it/${screen_width}/59C480`,
-                    `https://placehold.it/${screen_width}/546C80`,
-                ]}
-            />
-        </View>
-
-        <S.Title>LUGARES CERCANOS A TI</S.Title>
-        <Switcher onChange={filter => this.setState({ filter })} direction='row'>
-          <SegmentedControlButton theme={SegmentTheme} value='precio' text='Precio' />
-          <SegmentedControlButton theme={SegmentTheme} value='cercania' text='Cercania' />
-          <SegmentedControlButton theme={SegmentTheme} value='rating' text='Rating' />
-          <SegmentedControlButton theme={SegmentTheme} value='tiempo' text='Tiempo' />
-        </Switcher>
-
-        <ScrollView>
-            { this.state.list.map((item) => {
-                return <RestaurantTeaser key={item} onPressTeaser={this.openCarta} />
-            } )}
-        </ScrollView>
-
-      </S.Layout>
-    )
-  }
-=======
     updateList = (filter: string) => {
         this.setState({filter}, 
             () => this.props.actions.getLocales(this.state.filter)
@@ -120,10 +81,10 @@ class RestaurantList extends React.Component<Props, any> {
                 <Icon name='search' />
             </S.Header>
 
-            <View style={{width: screen_width, height: 200}}>
+            <View style={{width: screen_width, height: 100}}>
                 <Carousel
                     width={screen_width}
-                    height={200}
+                    height={100}
                     images={[
                         `https://placehold.it/${screen_width}/311112`,
                         `https://placehold.it/${screen_width}/59C480`,
@@ -150,7 +111,6 @@ class RestaurantList extends React.Component<Props, any> {
         </S.Layout>
         )
     }
->>>>>>> origin
 }
 
 const mapStateToProps = (state: IStore, ownProps) => ({

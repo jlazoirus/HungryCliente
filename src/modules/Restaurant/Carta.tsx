@@ -7,13 +7,7 @@ import styled from "styled-components";
 import { Routes } from '../../Routes';
 import { NavigationScreenProp } from 'react-navigation';
 import PlateTeaser from './CartaTeaser';
-<<<<<<< HEAD
-=======
 import { CartaActions } from '../../store/actions/CartaActions';
-const screen_width = Dimensions.get("window").width;
-
-
->>>>>>> origin
 
 const screen_width = Dimensions.get("window").width;
 const S = {
