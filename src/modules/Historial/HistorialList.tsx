@@ -5,9 +5,6 @@ import styled from "styled-components";
 import { NavigationScreenProp } from 'react-navigation';
 import HistorialTeaser from './HistorialTeaser';
 
-// <github project>/nachos-ui/src/SegmentedControlButton.js
-
-
 const S = {
     Layout: styled(View)`
         flex: 1;

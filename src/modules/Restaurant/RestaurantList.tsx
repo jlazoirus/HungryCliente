@@ -6,26 +6,12 @@ import styled from "styled-components";
 import RestaurantTeaser from './RestaurantTeaser';
 import { NavigationScreenProp } from 'react-navigation';
 import { Routes } from '../../Routes';
-const screen_width = Dimensions.get("window").width;
+import { SegmentTheme } from './styles';
+import { connect } from 'react-redux';
+import { RestaurantsActions } from '../../store/actions/RestaurantsActions';
+import { IStore } from '../../store/reducers/index';
 
-// <github project>/nachos-ui/src/SegmentedControlButton.js
-const SegmentTheme = {
-    BUTTON_BACKGROUND: '#fff',
-    BUTTON_BORDER_WIDTH: 1,
-    BUTTON_BORDER_COLOR: '#aa072a',
-    BUTTON_BORDER_RADIUS: 5,
-    BUTTON_HEIGHT: 30,
-    BUTTON_FONT_COLOR: '#aa072a',
-    BUTTON_FONT_SIZE: 14,
-    BUTTON_FONT_WEIGHT: 'normal',
-    BUTTON_SELECTED_BACKGROUND: '#aa072a',
-    BUTTON_SELECTED_FONT_COLOR: '#fff',
-    BUTTON_SELECTED_BORDER_COLOR: '#aa072a',
-    BUTTON_ICON_SIZE: 15,
-    BUTTON_ICON_POSITION: 'left',
-    BUTTON_ICON_COLOR: '#aa072a',
-    BUTTON_ACTIVE_ICON_COLOR: '#fff',
-};
+const screen_width = Dimensions.get("window").width;
 
 const S = {
     Layout: styled(View)`
@@ -47,17 +33,30 @@ const S = {
 
 type Props = {
   navigation: NavigationScreenProp<any>;
+  actions: {
+    getLocales: (filter: string) => {}
+  },
+  restaurants: any[]
 }
-
-export default class RestaurantList extends React.Component<Props, any> {
+class RestaurantList extends React.Component<Props, any> {
 
     constructor(props) {
         super(props)
     }
 
     state = {
-        filter: 'precio',
-        list:[1,2,3,4,5,6,7]
+        filter: 'precio'
+    }
+
+    componentDidMount () {
+        // To use the list from the Store
+        // We need to add a 
+        // (1) Create a Fetch Action into the action file
+        // (2) add it in mapDispatchToProps
+        // (3) add the new prop in mapStateToProps
+        // (4) Add into connect()()
+        // (5) Use the list form props
+        this.props.actions.getLocales(this.state.filter);
     }
 
     openMenu = () => {
@@ -68,6 +67,7 @@ export default class RestaurantList extends React.Component<Props, any> {
         this.props.navigation.navigate(Routes.Carta);
     }
 
+<<<<<<< HEAD
   render() {
     return (
       <S.Layout>
@@ -105,5 +105,62 @@ export default class RestaurantList extends React.Component<Props, any> {
       </S.Layout>
     )
   }
+=======
+    updateList = (filter: string) => {
+        this.setState({filter}, 
+            () => this.props.actions.getLocales(this.state.filter)
+        );
+    }
+
+    render() {
+        return (
+        <S.Layout>
+            <S.Header>
+                <Icon name='menu' onPress={this.openMenu}/>
+                <Icon name='search' />
+            </S.Header>
+
+            <View style={{width: screen_width, height: 200}}>
+                <Carousel
+                    width={screen_width}
+                    height={200}
+                    images={[
+                        `https://placehold.it/${screen_width}/311112`,
+                        `https://placehold.it/${screen_width}/59C480`,
+                        `https://placehold.it/${screen_width}/546C80`,
+                    ]}
+                />
+            </View>
+
+            <S.Title>LUGARES CERCANOS A TI </S.Title>
+            
+            <Switcher onChange={this.updateList} direction='row'>
+                <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'precio'} value='precio' text='Precio' />
+                <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'cercania'} value='cercania' text='Cercania' />
+                <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'rating'} value='rating' text='Rating' />
+                <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'tiempo'} value='tiempo' text='Tiempo' />
+            </Switcher>
+
+            <ScrollView>
+                { this.props.restaurants.map((item) => {
+                    return <RestaurantTeaser key={item._id} data={item} onPressTeaser={this.openCarta} />
+                } )}
+            </ScrollView>
+
+        </S.Layout>
+        )
+    }
+>>>>>>> origin
 }
 
+const mapStateToProps = (state: IStore, ownProps) => ({
+    restaurants: state.restaurants
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    actions: {
+        getLocales: (filter) => dispatch(RestaurantsActions.getAll(filter))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantList);

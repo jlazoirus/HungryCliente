@@ -24,21 +24,25 @@ const S = {
     `,
 };
 
-export default class PlateTeaser extends React.Component {
+type Props = {
+  data: any
+}
+
+export default class PlateTeaser extends React.Component<Props, any> {
   render() {
     return (
       <S.Card>
         <S.Image>
           <Image
             style={{ width: 100, height: 100 }}
-            source={{ uri: "https://upx.cz/BsN" }}
+            source={{ uri: this.props.data.picture }}
           />
         </S.Image>
         <S.Content>
-          <H4>NOMBRE DEL PLATO</H4>
-          <Text>Description ... </Text>
-          <Text>Precio</Text>
-          <A>Ingredientes >>> </A>
+          <H4>{this.props.data.company}</H4>
+          <Text>{this.props.data.about.split('').splice(0, 40).join('')} ...</Text>
+          <Text>{this.props.data.price}</Text>
+          <A>Ingredientes > </A>
         </S.Content>
         <S.ViewMore>
           <Icon name="add-circle" active />

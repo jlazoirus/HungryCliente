@@ -7,6 +7,13 @@ import styled from "styled-components";
 import { Routes } from '../../Routes';
 import { NavigationScreenProp } from 'react-navigation';
 import PlateTeaser from './CartaTeaser';
+<<<<<<< HEAD
+=======
+import { CartaActions } from '../../store/actions/CartaActions';
+const screen_width = Dimensions.get("window").width;
+
+
+>>>>>>> origin
 
 const screen_width = Dimensions.get("window").width;
 const S = {
@@ -43,7 +50,13 @@ export default class Carta extends React.Component<Props, any> {
 
     state = {
         filter: 'precio',
-        list:[1,2,3,4,5,6,7]
+        list: []
+    }
+
+    componentDidMount() {
+        // If we don't need the list in other components 
+        // we can only make the request and then Update the state with the list
+        CartaActions.fetchCarta(123).then(list => this.setState({ list }))
     }
 
     onPressArrowBack = () => {
@@ -65,7 +78,7 @@ export default class Carta extends React.Component<Props, any> {
         <View style={{width: screen_width, height: 100}}>
             <Carousel
                 width={screen_width}
-                height={100}
+                height={200}
                 images={[
                     `https://placehold.it/${screen_width}/311112`,
                     `https://placehold.it/${screen_width}/59C480`,
@@ -91,9 +104,9 @@ export default class Carta extends React.Component<Props, any> {
                     <Text>Delivery</Text>
                 </View>
             </S.Options>
-            { this.state.list.map((item) => {
-                return <PlateTeaser key={item} />
-            } )}
+
+            { this.state.list.map((item: any) => <PlateTeaser key={item._id} data={item} /> )}
+
         </ScrollView>
 
       </S.Layout>
