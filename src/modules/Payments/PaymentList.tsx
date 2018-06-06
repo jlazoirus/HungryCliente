@@ -63,7 +63,7 @@ class PaymentsList extends React.Component<Props, State> {
         <H4>****&nbsp;****&nbsp;****&nbsp;{payment.digits}</H4>
         <Text>{payment.expiration}</Text>
       </S.Content>
-    ): <S.Content></S.Content>;
+    ): <S.Content><Text>Efectivo</Text></S.Content>;
 
     return <S.Card key={payment.id}>
       <S.Image>

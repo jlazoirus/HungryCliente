@@ -4,7 +4,6 @@ import { ScrollView, Text, Image, View } from "react-native";
 import { H4 } from "nachos-ui";
 import styled from "styled-components"
 import { NavigationScreenProp } from 'react-navigation';
-import * as _ from 'lodash';
 import { PaymentActions } from '../../store/actions/PaymentsActions';
 
 type Props = {
