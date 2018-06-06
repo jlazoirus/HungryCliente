@@ -29,31 +29,29 @@ const S = {
 }
 
 type Props = {
-    onPlusPress: Function,
-    onMinusPress: Function
+    quantity: string,
+    id:string,
+    onUpdate: Function,
 }
 
 // todo: Create a Reusable component we can use in all the screens
-export default class Layout extends React.Component<Props, any> {
+class NumberPicker extends React.Component<Props, any> {
     onPlusPress = () => {
-        if (this.props.onPlusPress) {
-            this.props.onPlusPress();
-        }
+        this.props.onUpdate(this.props.id, +(this.props.quantity) + 1);
     }
 
     onMinusPress = () => {
-        if (this.props.onMinusPress) {
-            this.props.onMinusPress();
-        }
+        this.props.onUpdate(this.props.id, +(this.props.quantity) - 1);
     }
 
   render() {
     return (
         <S.Layout>
-            <Icon name="remove-circle-outline" onPress={this.onMinusPress} />
-            <Text>4</Text>
-            <Icon name="add-circle-outline" onPress={this.onPlusPress} />
+            <Icon name="remove" onPress={this.onMinusPress} />
+            <Text>{this.props.quantity}</Text>
+            <Icon name="add" onPress={this.onPlusPress} />
         </S.Layout>
     );
   }
 }
+export default(NumberPicker);

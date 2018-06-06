@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Text, View } from "react-native";
-import { H4, A } from "nachos-ui";
-import { Picker  } from "native-base";
+import { H4 } from "nachos-ui";
 import styled from "styled-components";
+import NumberPicker from "../shared/NumberPicker";
+import { connect } from 'react-redux';
 
 const S = {
     Card: styled(View)`
@@ -21,43 +22,33 @@ const S = {
     `,
 };
 
-const Item = Picker.Item;
 type Props = {
-    onPressTeaser: Function,
-    key: any
+    key: any,
+    data: any,
+    onUpdate: Function,
   }
 export default class CartItem extends React.Component<Props, any> {
     
     state = {
         selected: '',
     }
-    onPressTeaser = () => {
-        if (this.props.onPressTeaser) {
-          this.props.onPressTeaser();
-        }
-      }
       render() {
-      return (
-        <S.Card>
-          <S.Content>
-            <H4>NOMBRE DEL PLATO</H4>
-            <Text>Description ... </Text>
-            <A>Mas> </A>
-          </S.Content>
-          <S.ViewMore>
-            <Text>Precio</Text>
-            <Picker
-              iosHeader="Select one"
-              mode='dropdown'
-              selectedValue={this.state.selected}>
-              <Item label='1' value='1' />
-              <Item label='2' value='2' />
-              <Item label='3' value='3' />
-              <Item label='4' value='4' />
-            </Picker>
-          </S.ViewMore>
-        </S.Card>
-      );
+        const {company, about, price, quantity, _id} = this.props.data;
+        return (
+          <S.Card>
+            <S.Content>
+              <H4>{company}</H4>
+            </S.Content>
+            <S.ViewMore>
+            <Text>s/.{price}</Text>
+            <NumberPicker 
+              quantity= {quantity}
+              id={_id}
+              onUpdate= {this.props.onUpdate}>
+            </NumberPicker>
+            </S.ViewMore>
+          </S.Card>
+        );
     }
   }
   
