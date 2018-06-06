@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
+import { View, Text, Dimensions, ScrollView } from 'react-native';
 import { Icon} from 'native-base';
-import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5 } from 'nachos-ui';
+import { Carousel, Switcher, SegmentedControlButton } from 'nachos-ui';
 import styled from "styled-components";
 import RestaurantTeaser from './RestaurantTeaser';
 import { NavigationScreenProp } from 'react-navigation';

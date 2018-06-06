@@ -27,6 +27,10 @@ type Props = {
     key: any
   }
 export default class CartItem extends React.Component<Props, any> {
+    
+    state = {
+        selected: '',
+    }
     onPressTeaser = () => {
         if (this.props.onPressTeaser) {
           this.props.onPressTeaser();
@@ -44,7 +48,8 @@ export default class CartItem extends React.Component<Props, any> {
             <Text>Precio</Text>
             <Picker
               iosHeader="Select one"
-              mode='dropdown'>
+              mode='dropdown'
+              selectedValue={this.state.selected}>
               <Item label='1' value='1' />
               <Item label='2' value='2' />
               <Item label='3' value='3' />
