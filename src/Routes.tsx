@@ -10,6 +10,7 @@ import Historial from './modules/Historial/HistorialList';
 import Carrito from './modules/Carrito/CarritoList';
 import PaymentsList from './modules/Payments/PaymentList';
 import PaymentForm from './modules/Payments/PaymentForm';
+import PlateTeaser from './modules/Restaurant/CartaTeaser';
 
 export const Routes = {
     splash: 'SplashScreen',
@@ -50,7 +51,8 @@ const RoutesApp = createSwitchNavigator({
             [Routes.Payment]: PaymentForm,
         }, { headerMode: 'none'}),
         [Routes.cerrar_session]: Logout
-     })
+     }),
+     PlateTeaser
 });
 
 export default RoutesApp;

@@ -99,7 +99,7 @@ export default class Carta extends React.Component<Props, any> {
                 </View>
             </S.Options>
 
-            { this.state.list.map((item: any) => <PlateTeaser key={item._id} data={item} /> )}
+            { this.state.list.map((item: any) => <PlateTeaser key={item._id} data={item} onPress={this.onPressCart} /> )}
 
         </ScrollView>
 

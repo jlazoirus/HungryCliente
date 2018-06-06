@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import { H4 } from "nachos-ui";
 import styled from "styled-components";
 import NumberPicker from "../shared/NumberPicker";
+import { connect } from 'react-redux';
 
 const S = {
     Card: styled(View)`
@@ -22,32 +23,32 @@ const S = {
 };
 
 type Props = {
-    onPressTeaser: Function,
-    key: any
+    key: any,
+    data: any,
+    onUpdate: Function,
   }
 export default class CartItem extends React.Component<Props, any> {
     
     state = {
         selected: '',
     }
-    onPressTeaser = () => {
-        if (this.props.onPressTeaser) {
-          this.props.onPressTeaser();
-        }
-      }
       render() {
-      return (
-        <S.Card>
-          <S.Content>
-            <H4>NOMBRE DEL PLATO</H4>
-            <Text>Pequeña description del plato</Text>
-          </S.Content>
-          <S.ViewMore>
-          <Text>Precio</Text>
-          <NumberPicker></NumberPicker>
-          </S.ViewMore>
-        </S.Card>
-      );
+        const {company, about, price, quantity, _id} = this.props.data;
+        return (
+          <S.Card>
+            <S.Content>
+              <H4>{company}</H4>
+            </S.Content>
+            <S.ViewMore>
+            <Text>s/.{price}</Text>
+            <NumberPicker 
+              quantity= {quantity}
+              id={_id}
+              onUpdate= {this.props.onUpdate}>
+            </NumberPicker>
+            </S.ViewMore>
+          </S.Card>
+        );
     }
   }
   

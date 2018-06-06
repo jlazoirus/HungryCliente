@@ -11,7 +11,7 @@ export const Carrito = [
     {
       "_id": "5b145c14cd0520d761ba7b0e",
       "index": 1,
-      "price": "$42.77",
+      "price": "42.77",
       "picture": "https://upx.cz/56w",
       "company": "EXOSIS",
       "quantity": "1",

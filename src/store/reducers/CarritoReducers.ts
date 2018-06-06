@@ -1,4 +1,5 @@
 import { CarritoActionTypes } from '../actions/CarritoActions';
+import { Carrito } from '../../mocks/Carrito';
 
 
 type Action = {
@@ -6,12 +7,14 @@ type Action = {
     payload: any
 }
 
-export default function RestaurantsReducer (state = [], action: Action) {
+export default function CarritoReducer (state = Carrito, action: Action) {
     switch (action.type) {
         case CarritoActionTypes.CARRITO_ERROR:
             return [];
         case CarritoActionTypes.CARRITO_SUCCESS:
-            return [...action.payload]
+            return [...action.payload];
+        case CarritoActionTypes.CARRITO_UPDATE:
+            return[...action.payload.map(item=>({...item}))];
         default:
             return state;
     }
