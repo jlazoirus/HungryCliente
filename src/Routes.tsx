@@ -10,6 +10,7 @@ import Historial from './modules/Historial/historialList';
 import Carrito from './modules/Carrito/CarritoList';
 import PaymentsList from './modules/Payments/PaymentList';
 import PaymentForm from './modules/Payments/PaymentForm';
+import PaymentUpdateForm from './modules/Payments/PaymentUpdateForm';
 
 export const Routes = {
     splash: 'SplashScreen',
@@ -22,6 +23,7 @@ export const Routes = {
     Carta: 'Carta',
     CategoryList: 'Categorías',
     Payment: 'Método de Pago',
+    PaymentUpdateForm: 'PaymentUpdateForm',
     Payments: 'Métodos de Pago',
     PaymentsList: 'Métodos de Pago',
     cerrar_session: 'Cerrar Session',
@@ -47,6 +49,7 @@ const RoutesApp = createSwitchNavigator({
         [Routes.Payments]: createStackNavigator({
             [Routes.PaymentsList]: PaymentsList,
             [Routes.Payment]: PaymentForm,
+            [Routes.PaymentUpdateForm]: PaymentUpdateForm,
         }, { headerMode: 'none'}),
         [Routes.cerrar_session]: Logout
      })

@@ -7,6 +7,7 @@ import { NavigationScreenProp } from 'react-navigation';
 import * as _ from 'lodash';
 import { PaymentActions } from '../../store/actions/PaymentsActions';
 import { Routes } from '../../Routes';
+import { Cards } from '../../mocks/Cards';
 
 type Props = {
   navigation: NavigationScreenProp<any>;
@@ -31,34 +32,23 @@ class PaymentsList extends React.Component<Props, State> {
   }
 
   onPressMethod = () => {
-      this.props.navigation.navigate(Routes.Payment);
+    this.props.navigation.navigate(Routes.Payment);
   }
+
+  addMethod = () => {
+    this.props.navigation.navigate(Routes.PaymentUpdateForm);
+  }
+
   openMenu = () => {
     this.props.navigation.openDrawer();
   }
 
-  getIcon(id) {
-    let result = '';
-    switch(id) {
-      case 1:
-        result = 'https://cdn1.iconfinder.com/data/icons/simplicity-payment-methods/512/visa-512.png';
-        break;
-      case 2:
-        result = 'https://cdn2.iconfinder.com/data/icons/shopping-online-e-commerce-store/512/mastercard-512.png';
-        break;
-      case 3:
-        result = 'https://cdn1.iconfinder.com/data/icons/simplicity-payment-methods/512/diners_club-512.png';
-        break;
-      case 4:
-        result = 'https://cdn0.iconfinder.com/data/icons/iconico-3/1024/21.png';
-        break;
-    }
-
-    return result;
+  getIcon(operatorId) {
+    return _.find(Cards, {id: operatorId}).image;
   }
 
   getCard(payment) {
-    let text:any = payment.operator != 4 ? (
+    let text:any = payment.operator != 5 ? (
       <S.Content>
         <H4>****&nbsp;****&nbsp;****&nbsp;{payment.digits}</H4>
         <Text>{payment.expiration}</Text>
@@ -85,7 +75,6 @@ class PaymentsList extends React.Component<Props, State> {
         <S.Header>
           <Icon name='menu' onPress={this.openMenu} />
           <Text style={{ fontSize: 30 }}>Métodos de Pago</Text>
-          <Icon name='cart' active />
         </S.Header>
         <ScrollView>
             {
@@ -93,6 +82,14 @@ class PaymentsList extends React.Component<Props, State> {
                 return this.getCard(payment);
               })
             }
+            <S.Card>
+              <S.Image></S.Image>
+              <S.Content><Text>{ 'Agregar Método de Pago' }</Text></S.Content>
+              <S.ViewMore>
+                <Icon name="arrow-dropright" onPress={this.addMethod} />
+              </S.ViewMore>
+            </S.Card>
+
         </ScrollView>
       </S.Layout>
     );
