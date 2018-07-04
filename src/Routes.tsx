@@ -10,6 +10,7 @@ import Historial from './modules/Historial/historialList';
 import Carrito from './modules/Carrito/CarritoList';
 import PaymentsList from './modules/Payments/PaymentList';
 import PaymentForm from './modules/Payments/PaymentForm';
+import PayForm from './modules/Pay/PayForm';
 
 export const Routes = {
     splash: 'SplashScreen',
@@ -21,6 +22,7 @@ export const Routes = {
     RestaurantList: 'RestaurantList',
     Carta: 'Carta',
     CategoryList: 'Categorías',
+    PayOnline: 'Pago en Línea',
     Payment: 'Método de Pago',
     Payments: 'Métodos de Pago',
     PaymentsList: 'Métodos de Pago',
@@ -48,6 +50,7 @@ const RoutesApp = createSwitchNavigator({
             [Routes.PaymentsList]: PaymentsList,
             [Routes.Payment]: PaymentForm,
         }, { headerMode: 'none'}),
+        [Routes.PayOnline]: PayForm,
         [Routes.cerrar_session]: Logout
      })
 });
