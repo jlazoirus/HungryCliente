@@ -2,7 +2,6 @@ import * as React from "react";
 import { Icon } from "native-base";
 import * as rne from 'react-native-elements';
 import { ScrollView, Text, Image, View, Dimensions, TouchableHighlight } from "react-native";
-import { Carousel } from 'nachos-ui';
 import styled from "styled-components"
 import { NavigationScreenProp } from 'react-navigation';
 import * as _ from 'lodash';
@@ -14,7 +13,7 @@ import { Routes } from '../../Routes';
 type Props = {
   navigation: NavigationScreenProp<any>;
   actions: {
-    getCategories: () => {}
+    getCategories: (filter?: string) => {}
   },
   categories: any
 };
@@ -83,6 +82,10 @@ class CategoryList extends React.Component<Props, State> {
   someMethod() {
 
   }
+
+  searchCategory(filter:string) {
+    this.props.actions.getCategories(filter);
+  }
   openMenu = () => {
     this.props.navigation.openDrawer();
   }
@@ -100,27 +103,28 @@ class CategoryList extends React.Component<Props, State> {
         </S.Header>
         <ScrollView>
           <S.View style={{ width: screen_width, height: 200 }}>
-              <S.Image 
-                  style={{height: 150}} 
-                  source={require('../../../assets/images/hungrylogo.png')} 
+              <S.Image
+                  style={{height: 150}}
+                  source={require('../../../assets/images/hungrylogo.png')}
               />
           </S.View>
           <rne.SearchBar
+            clearIcon={{color: 'black'}}
             lightTheme
             round
-            onChangeText={this.someMethod}
-            onClearText={this.someMethod}
+            onChangeText={(text) => this.searchCategory(text)}
+            onClearText={() => this.searchCategory('')}
             icon={{ type: 'font-awesome', name: 'search' }}
-            placeholder='Que te provoca come hoy?' />
+            placeholder='¿Qué te provoca comer hoy?' />
 
           <S.Options>
             {
               _.map(this.props.categories, (category) => {
-                return <TouchableHighlight onPress= {this.goToRestaurants} >
-                <S.Item key={category._id}>
-                <S.Image source={{ uri: category.imgUrl }}></S.Image>
-                <Text >{category.name}</Text>
-              </S.Item>
+                return <TouchableHighlight onPress= {this.goToRestaurants} key={category._id}>
+                <S.Item>
+                  <S.Image source={{ uri: category.imgUrl }}></S.Image>
+                  <Text >{category.name}</Text>
+                </S.Item>
               </TouchableHighlight>
               })
             }
@@ -138,7 +142,7 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   actions: {
-    getCategories: () => dispatch(CategoriesActions.getAll(''))
+    getCategories: (categoryName?: string) => dispatch(CategoriesActions.getAll(categoryName || ''))
   }
 })
 

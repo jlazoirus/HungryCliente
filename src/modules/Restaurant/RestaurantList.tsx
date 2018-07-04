@@ -50,7 +50,7 @@ class RestaurantList extends React.Component<Props, any> {
 
     componentDidMount () {
         // To use the list from the Store
-        // We need to add a 
+        // We need to add a
         // (1) Create a Fetch Action into the action file
         // (2) add it in mapDispatchToProps
         // (3) add the new prop in mapStateToProps
@@ -63,12 +63,16 @@ class RestaurantList extends React.Component<Props, any> {
         this.props.navigation.openDrawer();
     }
 
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
+
     openCarta = () => {
         this.props.navigation.navigate(Routes.Carta);
     }
 
     updateList = (filter: string) => {
-        this.setState({filter}, 
+        this.setState({filter},
             () => this.props.actions.getLocales(this.state.filter)
         );
     }
@@ -77,7 +81,7 @@ class RestaurantList extends React.Component<Props, any> {
         return (
         <S.Layout>
             <S.Header>
-                <Icon name='menu' onPress={this.openMenu}/>
+                <Icon name='ios-arrow-back' onPress={this.goBack}/>
                 <Icon name='search' />
             </S.Header>
 
@@ -94,7 +98,7 @@ class RestaurantList extends React.Component<Props, any> {
             </View>
 
             <S.Title>LUGARES CERCANOS A TI </S.Title>
-            
+
             <Switcher onChange={this.updateList} direction='row'>
                 <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'precio'} value='precio' text='Precio' />
                 <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'cercania'} value='cercania' text='Cercania' />
