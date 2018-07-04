@@ -12,7 +12,7 @@ const S = {
         border-bottom-width: 1px;
     `,
     Image: styled(View)`
-        flex: 3
+        flex: 3;
     `,
     Content: styled(View)`
         flex: 5;
@@ -44,7 +44,7 @@ export default class RestaurantTeaser extends React.Component<Props, any> {
         <S.Image>
           <Image
             style={{ width: 100, height: 100 }}
-            source={{ uri: this.props.data.picture, cache: 'only-if-cached'}}
+            source={{ uri: this.props.data.picture}}
             
           />
         </S.Image>
