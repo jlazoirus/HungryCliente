@@ -48,7 +48,7 @@ class PaymentsList extends React.Component<Props, State> {
   }
 
   getCard(payment) {
-    let text:any = payment.operator != 5 ? (
+    let text:any = payment.operator !== 5 ? (
       <S.Content>
         <H4>****&nbsp;****&nbsp;****&nbsp;{payment.digits}</H4>
         <Text>{payment.expiration}</Text>
