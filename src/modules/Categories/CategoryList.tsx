@@ -83,7 +83,7 @@ class CategoryList extends React.Component<Props, State> {
 
   }
 
-  searchCategory(filter:string) {
+  searchCategory = (filter:string) => {
     this.props.actions.getCategories(filter);
   }
   openMenu = () => {
@@ -112,8 +112,8 @@ class CategoryList extends React.Component<Props, State> {
             clearIcon={{color: 'black'}}
             lightTheme
             round
-            onChangeText={(text) => this.searchCategory(text)}
-            onClearText={() => this.searchCategory('')}
+            onChangeText={this.searchCategory}
+            onChangeText={this.searchCategory}
             icon={{ type: 'font-awesome', name: 'search' }}
             placeholder='¿Qué te provoca comer hoy?' />
 
