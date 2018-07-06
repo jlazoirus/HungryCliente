@@ -6,10 +6,11 @@ import SplashScreen from './modules/Splash/SplashScreen';
 import CategoryList from './modules/Categories/CategoryList';
 import RestaurantList from './modules/Restaurant/RestaurantList';
 import Carta from './modules/Restaurant/Carta';
-import Historial from './modules/Historial/HistorialList';
+import Historial from './modules/Historial/historialList';
 import Carrito from './modules/Carrito/CarritoList';
 import PaymentsList from './modules/Payments/PaymentList';
 import PaymentForm from './modules/Payments/PaymentForm';
+import PaymentUpdateForm from './modules/Payments/PaymentUpdateForm';
 import PlateTeaser from './modules/Restaurant/CartaTeaser';
 
 export const Routes = {
@@ -23,6 +24,7 @@ export const Routes = {
     Carta: 'Carta',
     CategoryList: 'Categorías',
     Payment: 'Método de Pago',
+    PaymentUpdateForm: 'PaymentUpdateForm',
     Payments: 'Métodos de Pago',
     PaymentsList: 'Métodos de Pago',
     cerrar_session: 'Cerrar Session',
@@ -49,6 +51,7 @@ const RoutesApp = createSwitchNavigator({
         [Routes.Payments]: createStackNavigator({
             [Routes.PaymentsList]: PaymentsList,
             [Routes.Payment]: PaymentForm,
+            [Routes.PaymentUpdateForm]: PaymentUpdateForm,
         }, { headerMode: 'none'}),
         [Routes.cerrar_session]: Logout
      }),

@@ -1,13 +1,12 @@
-import { Icon } from "native-base";
-import { ScrollView, Text, Image, View } from "react-native";
-import { H4 } from "nachos-ui";
+import * as React from "react";
+import * as _ from 'lodash';
+
+import { Icon, Input } from "native-base";
+import { ScrollView, Text, View, Button } from "react-native";
 import styled from "styled-components"
 import { NavigationScreenProp } from 'react-navigation';
 import { PaymentActions } from '../../store/actions/PaymentsActions';
 import { Cards } from '../../mocks/Cards';
-import { Routes } from '../../Routes';
-import * as React from "react";
-import * as _ from 'lodash';
 
 type Props = {
   navigation: NavigationScreenProp<any>;
@@ -20,26 +19,32 @@ type Props = {
 type State = {
 };
 
-class PaymentForm extends React.Component<Props, State> {
+class PaymentUpdateForm extends React.Component<Props, State> {
 
   state = {
-    list: []
+    list: [],
+    cardNumber: '',
+    expirationDate: '',
+    cvv: ''
   };
 
   componentDidMount () {
     PaymentActions.fetchPayments().then(list => this.setState({ list }))
   }
 
+  onPressMethod = () => {
+
+  }
   onPressArrowBack = () => {
     this.props.navigation.goBack();
-  }
+}
 
-  getIcon = (operatorId) => {
+  getIcon(operatorId) {
     return _.find(Cards, {id: operatorId}).image;
   }
-
-  editMethod = () => {
-    this.props.navigation.navigate(Routes.PaymentUpdateForm)
+  saveMethod = () => {
+    // TODO: save card data
+    this.onPressArrowBack();
   }
 
   render() {
@@ -48,31 +53,42 @@ class PaymentForm extends React.Component<Props, State> {
         <S.Header>
         <Icon name='arrow-back' active onPress={this.onPressArrowBack}/>
           <Text style={{ fontSize: 30 }}>Métodos de Pago</Text>
-          <Icon name='create' onPress={this.editMethod} />
+          <Icon name='create' active />
         </S.Header>
         <ScrollView>
           <S.Card >
             <S.Content>
-              <S.Image>
-              <Image
-                style={{ width: 50, height: 50 }}
-                source={{ uri: this.getIcon(1)}}
-              />
-            </S.Image>
+              <Input
+                  style={{ color: "black", fontWeight: "bold" }}
+                  placeholder="Número de tarjeta"
+                  placeholderTextColor='black'
+                  onChangeText={cardNumber => this.setState({ cardNumber })}
+                  value={this.state.cardNumber}/>
             </S.Content>
           </S.Card >
           <S.Card >
             <S.Content>
-              <H4>Número de Tarjeta:</H4>
-              <Text>****&nbsp;****&nbsp;****&nbsp;12342</Text>
+            <Input
+                  style={{ color: "black", fontWeight: "bold" }}
+                  placeholder="Fecha Expiración"
+                  placeholderTextColor='black'
+                  onChangeText={expirationDate => this.setState({ expirationDate })}
+                  value={this.state.expirationDate}
+            />
+            <Input
+                  style={{ color: "black", fontWeight: "bold" }}
+                  placeholder="CVV"
+                  placeholderTextColor='black'
+                  onChangeText={cvv => this.setState({ cvv })}
+                  value={this.state.cvv}
+            />
             </S.Content>
           </S.Card>
-          <S.Card>
-          <S.Content>
-            <H4>Fecha de Expiración</H4>
-            <Text>01/20</Text>
-          </S.Content>
-          </S.Card>
+          <Button
+            onPress={this.saveMethod}
+            title="Guardar"
+            color="red"
+          />
         </ScrollView>
       </S.Layout>
     );
@@ -105,5 +121,5 @@ const S = {
       flex: 2
   `,
 };
-export default PaymentForm;
+export default PaymentUpdateForm;
 

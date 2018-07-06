@@ -113,7 +113,7 @@ class CategoryList extends React.Component<Props, State> {
             lightTheme
             round
             onChangeText={this.searchCategory}
-            onChangeText={this.searchCategory}
+            onClear={this.searchCategory}
             icon={{ type: 'font-awesome', name: 'search' }}
             placeholder='¿Qué te provoca comer hoy?' />
 
