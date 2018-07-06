@@ -1,4 +1,5 @@
 import { Categories } from '../../mocks/Categories';
+import * as _ from 'lodash';
 
 export enum CategoriesActionTypes {
     CATEGORIES_FETCH = '[CATEGORIES] FETCH',
@@ -10,7 +11,11 @@ export enum CategoriesActionTypes {
 const fetchCategories = (filter) => {
     // return fetch('https://www.google.com/search?q=secret+sauce');
     // Coz We are using mocks , we will handle them as Promises
-    return Promise.resolve(Categories);
+    let result = _.filter(Categories, (category) => {
+        let matched = _.includes(category.name.toLowerCase(), filter.toLowerCase());
+        return matched;
+    });
+    return Promise.resolve(result);
 }
 
 const CategoriesSuccess = (list) => ({
