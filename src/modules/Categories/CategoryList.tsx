@@ -1,19 +1,19 @@
 import * as React from "react";
 import { Icon } from "native-base";
 import * as rne from 'react-native-elements';
-import { ScrollView, Text, Image, View, Dimensions } from "react-native";
-import { Carousel } from 'nachos-ui';
+import { ScrollView, Text, Image, View, Dimensions, TouchableHighlight } from "react-native";
 import styled from "styled-components"
 import { NavigationScreenProp } from 'react-navigation';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
 import { IStore } from '../../store/reducers/index';
 import { CategoriesActions } from '../../store/actions/CategoriesActions';
+import { Routes } from '../../Routes';
 
 type Props = {
   navigation: NavigationScreenProp<any>;
   actions: {
-    getCategories: () => {}
+    getCategories: (filter?: string) => {}
   },
   categories: any
 };
@@ -52,6 +52,8 @@ const S = {
   View: styled(View) `
     align-items: center;
     flex-direction: row;
+    background-color: #aa072a;
+    flex:1;
   `,
   Item: styled(View) `
     width: ${(screen_width / 4) - 10}px;
@@ -80,8 +82,15 @@ class CategoryList extends React.Component<Props, State> {
   someMethod() {
 
   }
+
+  searchCategory = (filter:string) => {
+    this.props.actions.getCategories(filter);
+  }
   openMenu = () => {
     this.props.navigation.openDrawer();
+  }
+  goToRestaurants = () => {
+    this.props.navigation.navigate(Routes.RestaurantList);
   }
 
   render() {
@@ -94,31 +103,29 @@ class CategoryList extends React.Component<Props, State> {
         </S.Header>
         <ScrollView>
           <S.View style={{ width: screen_width, height: 200 }}>
-            <Carousel
-              width={screen_width}
-              height={200}
-              images={[
-                `https://placehold.it/${screen_width}/311112`,
-                `https://placehold.it/${screen_width}/59C480`,
-                `https://placehold.it/${screen_width}/546C80`,
-              ]}
-            />
+              <S.Image
+                  style={{height: 150}}
+                  source={require('../../../assets/images/hungrylogo.png')}
+              />
           </S.View>
           <rne.SearchBar
+            clearIcon={{color: 'black'}}
             lightTheme
             round
-            onChangeText={this.someMethod}
-            onClearText={this.someMethod}
+            onChangeText={this.searchCategory}
+            onClear={this.searchCategory}
             icon={{ type: 'font-awesome', name: 'search' }}
-            placeholder='Search' />
+            placeholder='¿Qué te provoca comer hoy?' />
 
           <S.Options>
             {
               _.map(this.props.categories, (category) => {
-                return <S.Item key={category._id}>
-                <S.Image source={{ uri: category.imgUrl }}></S.Image>
-                <Text >{category.name}</Text>
-              </S.Item>
+                return <TouchableHighlight onPress= {this.goToRestaurants} key={category._id}>
+                <S.Item>
+                  <S.Image source={{ uri: category.imgUrl }}></S.Image>
+                  <Text >{category.name}</Text>
+                </S.Item>
+              </TouchableHighlight>
               })
             }
           </S.Options>
@@ -135,7 +142,7 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   actions: {
-    getCategories: () => dispatch(CategoriesActions.getAll(''))
+    getCategories: (categoryName?: string) => dispatch(CategoriesActions.getAll(categoryName || ''))
   }
 })
 

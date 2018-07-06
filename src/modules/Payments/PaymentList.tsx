@@ -43,7 +43,7 @@ class PaymentsList extends React.Component<Props, State> {
     this.props.navigation.openDrawer();
   }
 
-  getIcon(operatorId) {
+  getIcon = (operatorId) => {
     return _.find(Cards, {id: operatorId}).image;
   }
 
@@ -75,6 +75,7 @@ class PaymentsList extends React.Component<Props, State> {
         <S.Header>
           <Icon name='menu' onPress={this.openMenu} />
           <Text style={{ fontSize: 30 }}>Métodos de Pago</Text>
+          <Icon name='cart'/>
         </S.Header>
         <ScrollView>
             {

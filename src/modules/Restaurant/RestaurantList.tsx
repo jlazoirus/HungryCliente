@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
+import { View, Text, Dimensions, ScrollView } from 'react-native';
 import { Icon} from 'native-base';
-import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5 } from 'nachos-ui';
+import { Carousel, Switcher, SegmentedControlButton } from 'nachos-ui';
 import styled from "styled-components";
 import RestaurantTeaser from './RestaurantTeaser';
 import { NavigationScreenProp } from 'react-navigation';
@@ -50,7 +50,7 @@ class RestaurantList extends React.Component<Props, any> {
 
     componentDidMount () {
         // To use the list from the Store
-        // We need to add a 
+        // We need to add a
         // (1) Create a Fetch Action into the action file
         // (2) add it in mapDispatchToProps
         // (3) add the new prop in mapStateToProps
@@ -63,12 +63,16 @@ class RestaurantList extends React.Component<Props, any> {
         this.props.navigation.openDrawer();
     }
 
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
+
     openCarta = () => {
         this.props.navigation.navigate(Routes.Carta);
     }
 
     updateList = (filter: string) => {
-        this.setState({filter}, 
+        this.setState({filter},
             () => this.props.actions.getLocales(this.state.filter)
         );
     }
@@ -77,14 +81,14 @@ class RestaurantList extends React.Component<Props, any> {
         return (
         <S.Layout>
             <S.Header>
-                <Icon name='menu' onPress={this.openMenu}/>
+                <Icon name='ios-arrow-back' onPress={this.goBack}/>
                 <Icon name='search' />
             </S.Header>
 
-            <View style={{width: screen_width, height: 200}}>
+            <View style={{width: screen_width, height: 100}}>
                 <Carousel
                     width={screen_width}
-                    height={200}
+                    height={100}
                     images={[
                         `https://placehold.it/${screen_width}/311112`,
                         `https://placehold.it/${screen_width}/59C480`,
@@ -94,7 +98,7 @@ class RestaurantList extends React.Component<Props, any> {
             </View>
 
             <S.Title>LUGARES CERCANOS A TI </S.Title>
-            
+
             <Switcher onChange={this.updateList} direction='row'>
                 <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'precio'} value='precio' text='Precio' />
                 <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'cercania'} value='cercania' text='Cercania' />

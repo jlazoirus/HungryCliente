@@ -3,6 +3,8 @@ import { Text, View, Image } from "react-native";
 import { H4, A } from "nachos-ui";
 import { Icon } from "native-base";
 import styled from "styled-components";
+import { NavigationScreenProp } from 'react-navigation';
+import { Routes } from '../../Routes';
 
 const S = {
     Card: styled(View)`
@@ -12,7 +14,7 @@ const S = {
         border-bottom-width: 1px;
     `,
     Image: styled(View)`
-        flex: 3
+        flex: 3;
     `,
     Content: styled(View)`
         flex: 5;
@@ -25,10 +27,12 @@ const S = {
 };
 
 type Props = {
-  data: any
+  data: any;
+  onPress: any;
 }
 
 export default class PlateTeaser extends React.Component<Props, any> {
+  
   render() {
     return (
       <S.Card>
@@ -45,7 +49,7 @@ export default class PlateTeaser extends React.Component<Props, any> {
           <A>Ingredientes > </A>
         </S.Content>
         <S.ViewMore>
-          <Icon name="add-circle" active />
+          <Icon name="add-circle" active onPress={this.props.onPress}/>
         </S.ViewMore>
       </S.Card>
     );

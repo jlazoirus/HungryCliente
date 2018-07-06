@@ -1,69 +1,54 @@
 import * as React from 'react'
-import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
-import { Icon} from 'native-base';
-import { Carousel, Switcher, SegmentedControlButton, H2, H3, H4, H5, Button } from 'nachos-ui';
+import { View, Text, ScrollView } from 'react-native';
+import { Icon } from 'native-base';
+import { Button, H4 } from 'nachos-ui';
 import styled from "styled-components";
 import CartItem from './CarritoItem';
 import { NavigationScreenProp } from 'react-navigation';
 import { Routes } from '../../Routes';
-const screen_width = Dimensions.get("window").width;
-
-// <github project>/nachos-ui/src/SegmentedControlButton.js
-const SegmentTheme = {
-    BUTTON_BACKGROUND: '#fff',
-    BUTTON_BORDER_WIDTH: 1,
-    BUTTON_BORDER_COLOR: '#aa072a',
-    BUTTON_BORDER_RADIUS: 5,
-    BUTTON_HEIGHT: 30,
-    BUTTON_FONT_COLOR: '#aa072a',
-    BUTTON_FONT_SIZE: 14,
-    BUTTON_FONT_WEIGHT: 'normal',
-    BUTTON_SELECTED_BACKGROUND: '#aa072a',
-    BUTTON_SELECTED_FONT_COLOR: '#fff',
-    BUTTON_SELECTED_BORDER_COLOR: '#aa072a',
-    BUTTON_ICON_SIZE: 15,
-    BUTTON_ICON_POSITION: 'left',
-    BUTTON_ICON_COLOR: '#aa072a',
-    BUTTON_ACTIVE_ICON_COLOR: '#fff',
-};
+import { IStore } from '../../store/reducers/index';
+import { connect } from 'react-redux';
+import { CarritoActions } from '../../store/actions/CarritoActions';
 
 const S = {
-    Layout: styled(View)`
+    Layout: styled(View) `
         flex: 1;
         padding-top: 20px;
     `,
-    Header: styled(View)`
+    Header: styled(View) `
         flex-direction: row;
         justify-content: space-between;
         background-color: #aa072a;
         padding: 10px;
     `,
-    Title: styled(Text)`
+    Title: styled(Text) `
         font-size: 20px;
         padding: 10px;
 
     `,
-    Card: styled(View)`
+    Card: styled(View) `
         flex-direction: row;
         padding: 10px;
         border-bottom-color: #aa072a;
         border-bottom-width: 1px;
     `,
-    Content: styled(View)`
+    Content: styled(View) `
         flex: 4;
         padding-left: 10px;
     `,
-    Total: styled(View)`
+    Total: styled(View) `
         flex: 3;
-        justify-content: right;
+        justify-content: flex-end;
     `,
 }
 
 type Props = {
-  navigation: NavigationScreenProp<any>;
+    navigation: NavigationScreenProp<any>;
+    carrito: any[];
+    actions: any;
 }
 
-export default class CarritoList extends React.Component<Props, any> {
+class CarritoList extends React.Component<Props, any> {
 
     constructor(props) {
         super(props)
@@ -71,7 +56,7 @@ export default class CarritoList extends React.Component<Props, any> {
 
     state = {
         filter: 'precio',
-        list:[1,2,3,4,5,6,7]
+        list: [1, 2, 3, 4, 5, 6, 7]
     }
 
     onPressArrowBack = () => {
@@ -82,30 +67,55 @@ export default class CarritoList extends React.Component<Props, any> {
         this.props.navigation.navigate(Routes.Carta);
     }
 
-  render() {
-    return (
-      <S.Layout>
-        <S.Header>
-            <Icon name='arrow-back' onPress={this.onPressArrowBack}/>
-        </S.Header>
+    updateCarrito = (id, quantity) => {
+        const nuevoCarrito = this.props.carrito.map(
+            (item) => {
+                if (item._id === id) { 
+                    return {...item,quantity};
+                }
+                return item;
+            });
+        this.props.actions.updateCarrito(nuevoCarrito);
+    }
 
-        <S.Title>Carrito de Compras</S.Title>
+    render() {
+        const total = this.props.carrito.reduce((acc,item) => +(item.quantity) * +(item.price) + acc, 0)
+        return (
+            <S.Layout>
+                <S.Header>
+                    <Icon name='arrow-back' onPress={this.onPressArrowBack} />
+                </S.Header>
 
-        <ScrollView>
-            { this.state.list.map((item) => {
-                return <CartItem key={item} onPressTeaser={this.openCarta} />
-            } )}
-        </ScrollView>
-        <S.Card>
-        <S.Content>
-            <H4>Total</H4>
-          </S.Content>
-          <S.Total>
-          <Text>S/.99</Text>
-          </S.Total>
-          <Button>Ir a pagar</Button>
-        </S.Card>
-      </S.Layout>
-    )
-  }
+                <S.Title>Carrito de Compras</S.Title>
+
+                <ScrollView>
+
+                    {this.props.carrito.map((item) => {
+                        return <CartItem key={item._id} data={item} onUpdate={this.updateCarrito} />
+                    })}
+                </ScrollView>
+                <S.Card>
+                    <S.Content>
+                        <H4>Total</H4>
+                    </S.Content>
+                    <S.Total>
+                        <Text>S/.{total}</Text>
+                    </S.Total>
+                    <Button onPress= {() => this.props.navigation.navigate(Routes.PaymentsList)}>OK</Button>
+                </S.Card>
+            </S.Layout>
+        )
+    }
 }
+const mapStateToProps = (state: IStore, ownProps) => ({
+    carrito: state.Carrito
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    actions: {
+        getLocales: (filter) => dispatch(CarritoActions.getAll(filter)),
+        updateCarrito: (list) => dispatch(CarritoActions.UpdateCarrito(list)),
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarritoList);
