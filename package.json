@@ -22,7 +22,9 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js",
-    "dev": "npm-run-all --parallel tsc expo"
+    "dev": "npm-run-all --parallel tsc expo",
+    "dev:ios": "npm-run-all --parallel tsc ios",
+    "dev:android": "npm-run-all --parallel tsc android"
   },
   "jest": {
     "preset": "jest-expo"

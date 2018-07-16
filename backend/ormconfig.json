@@ -1,0 +1,23 @@
+[
+    {
+        "name": "default",
+        "type": "mongodb",
+        "host": "localhost",
+        "database": "hungry",
+        "port": 27017,
+        "synchronize": true,
+        "logging": false,
+        "migrationsTableName": "migrations",
+        "entities": [
+            "src/entity/**/*.ts"
+        ],
+        "subscribers": [
+            "src/subscriber/**/*.ts"
+        ],
+        "cli": {
+            "entitiesDir": "src/entity",
+            "migrationsDir": "src/migration",
+            "subscribersDir": "src/subscriber"
+        }
+    }
+]

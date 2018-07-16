@@ -26,7 +26,8 @@
        "App.js",
        "App.test.js",
        "build",
-       "node_modules"
+       "node_modules",
+       "backend"
    ],
    "compileOnSave": false
 }
