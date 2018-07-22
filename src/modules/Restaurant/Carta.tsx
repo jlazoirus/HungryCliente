@@ -6,7 +6,7 @@ import * as rne from 'react-native-elements';
 import styled from "styled-components";
 import { Routes } from '../../Routes';
 import { NavigationScreenProp } from 'react-navigation';
-import PlateTeaser from './CartaTeaser';
+import Plate from './CartaTeaser';
 import { CartaActions } from '../../store/actions/CartaActions';
 
 const screen_width = Dimensions.get("window").width;
@@ -42,15 +42,17 @@ export default class Carta extends React.Component<Props, any> {
         super(props)
     }
 
+    list: any[] = [];
+
     state = {
-        filter: 'precio',
-        list: []
+        filter: null,
+        displayedList: []
     }
 
-    componentDidMount() {
-        // If we don't need the list in other components 
-        // we can only make the request and then Update the state with the list
-        CartaActions.fetchCarta(123).then(list => this.setState({ list }))
+
+    async componentDidMount() {
+       this.list = await CartaActions.fetchCarta(123);
+       this.setState({displayedList: this.list})
     }
 
     onPressArrowBack = () => {
@@ -59,6 +61,11 @@ export default class Carta extends React.Component<Props, any> {
 
     onPressCart = () => {
         this.props.navigation.navigate(Routes.Carrito);
+    }
+
+    updateFilter = (filter) => {
+        const displayedList = this.list.filter( item => (item as any).deliveryType.indexOf(filter) > -1 )
+        this.setState({displayedList, filter})
     }
 
   render() {
@@ -81,30 +88,51 @@ export default class Carta extends React.Component<Props, any> {
             />
         </View>
 
-        <S.Title>Nombre del Negocio</S.Title>
-        
+        <S.Title>Mama Raquel</S.Title>
         <ScrollView>
-            <S.Options>
-                <View>
-                    <rne.Icon raised name='bicycle' type='font-awesome' color='#aa072a' onPress={() => console.log('hello')} />
-                    <Text>Para Llevar</Text>
-                </View>
-                <View>
-                    <rne.Icon raised name='calendar' type='font-awesome' color='#aa072a' onPress={() => console.log('hello')} />
-                    <Text>Reservar</Text>
-                </View>
-                <View>
-                    <rne.Icon raised name='paper-plane' type='font-awesome' color='#aa072a' onPress={() => console.log('hello')} />
-                    <Text>Delivery</Text>
-                </View>
-            </S.Options>
-
-            { this.state.list.map((item: any) => <PlateTeaser key={item._id} data={item} onPress={this.onPressCart} /> )}
-
+            <MenuFilter currentFilter={this.state.filter} onSelectFilter={this.updateFilter} />
+            { this.state.displayedList.map((item: any) => (
+                <Plate key={item._id} data={item} onPress={this.onPressCart} />
+            ))}
         </ScrollView>
-
       </S.Layout>
     )
   }
 }
 
+const filters = [
+    { label: 'Para Llevar', icon: 'bicycle'},
+    { label: 'Reservar', icon: 'calendar'},
+    { label: 'Delivery', icon: 'paper-plane'},
+];
+
+const MenuFilter = ({ currentFilter, onSelectFilter }) => {
+  
+    return (
+        <S.Options>
+            { filters.map( ({label, icon }) => (
+                <FilterItem key={icon}
+                    label={label} 
+                    active={currentFilter === label} 
+                    icon={icon} 
+                    onPress={() => onSelectFilter(label)}
+                />
+            ))}
+        </S.Options>
+    )
+}
+
+
+const FilterItem = ({ label, icon , active, onPress }) => {
+    return (
+        <View>
+            <rne.Icon raised 
+                    name={icon} 
+                    reverse={active} 
+                    type='font-awesome' 
+                    color='#aa072a' 
+                    onPress={onPress} />
+            <Text>{ label }</Text>
+        </View>
+    )
+}
