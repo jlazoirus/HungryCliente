@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { View, Text, Dimensions, ScrollView } from 'react-native';
+import { View, Text, Dimensions, ScrollView, FlatList } from 'react-native';
 import { Icon} from 'native-base';
 import { Carousel, Switcher, SegmentedControlButton } from 'nachos-ui';
 import styled from "styled-components";
-import RestaurantTeaser from './RestaurantTeaser';
+import Restaurant from './RestaurantTeaser';
 import { NavigationScreenProp } from 'react-navigation';
 import { Routes } from '../../Routes';
 import { SegmentTheme } from './styles';
@@ -12,6 +12,12 @@ import { RestaurantsActions } from '../../store/actions/RestaurantsActions';
 import { IStore } from '../../store/reducers/index';
 
 const screen_width = Dimensions.get("window").width;
+
+const CarouselImages = [
+    `https://placehold.it/${screen_width}/311112`,
+    `https://placehold.it/${screen_width}/59C480`,
+    `https://placehold.it/${screen_width}/546C80`,
+]
 
 const S = {
     Layout: styled(View)`
@@ -86,32 +92,23 @@ class RestaurantList extends React.Component<Props, any> {
             </S.Header>
 
             <View style={{width: screen_width, height: 100}}>
-                <Carousel
-                    width={screen_width}
-                    height={100}
-                    images={[
-                        `https://placehold.it/${screen_width}/311112`,
-                        `https://placehold.it/${screen_width}/59C480`,
-                        `https://placehold.it/${screen_width}/546C80`,
-                    ]}
-                />
+                <Carousel width={screen_width} height={100} images={CarouselImages} />
             </View>
 
             <S.Title>LUGARES CERCANOS A TI </S.Title>
 
-            <Switcher onChange={this.updateList} direction='row'>
-                <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'precio'} value='precio' text='Precio' />
-                <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'cercania'} value='cercania' text='Cercania' />
-                <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'rating'} value='rating' text='Rating' />
-                <SegmentedControlButton theme={SegmentTheme} selected={this.state.filter == 'tiempo'} value='tiempo' text='Tiempo' />
-            </Switcher>
-
-            <ScrollView>
-                { this.props.restaurants.map((item) => {
-                    return <RestaurantTeaser key={item._id} data={item} onPressTeaser={this.openCarta} />
-                } )}
-            </ScrollView>
-
+            <RestaurantFilter currentFilter={this.state.filter} onSelect={this.updateList} />
+            <FlatList
+                data={this.props.restaurants}
+                keyExtractor={ (item) => item._id}
+                renderItem={({item}) => (
+                    <Restaurant 
+                        key={item._id} 
+                        data={item} 
+                        onPressTeaser={this.openCarta} 
+                    />
+                )}
+            />
         </S.Layout>
         )
     }
@@ -128,3 +125,27 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantList);
+
+
+const filters = [
+    { text: 'Precio', value: 'precio'},
+    { text: 'Cercania', value: 'cercania'},
+    { text: 'Rating', value: 'rating'},
+    { text: 'Tiempo', value: 'tiempo'},
+]
+
+const RestaurantFilter = ({ currentFilter, onSelect }) => {
+    return (
+        <Switcher onChange={onSelect} direction='row'>
+            { filters.map(({text, value}) => (
+                <SegmentedControlButton 
+                    key={text} 
+                    theme={SegmentTheme} 
+                    selected={currentFilter === value} 
+                    value={value} 
+                    text={text} 
+                />
+            ))}
+        </Switcher>
+    )
+}

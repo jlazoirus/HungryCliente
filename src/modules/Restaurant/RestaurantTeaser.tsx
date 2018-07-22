@@ -30,7 +30,7 @@ type Props = {
   key: any
 }
 
-export default class RestaurantTeaser extends React.Component<Props, any> {
+export default class Restaurant extends React.PureComponent<Props, any> {
 
   onPressTeaser = () => {
     if (this.props.onPressTeaser) {
@@ -45,7 +45,6 @@ export default class RestaurantTeaser extends React.Component<Props, any> {
           <Image
             style={{ width: 100, height: 100 }}
             source={{ uri: this.props.data.picture}}
-            
           />
         </S.Image>
         <S.Content>
