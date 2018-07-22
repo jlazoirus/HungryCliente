@@ -9,18 +9,11 @@ import { Routes } from '../../Routes';
 import { IStore } from '../../store/reducers/index';
 import { connect } from 'react-redux';
 import { CarritoActions } from '../../store/actions/CarritoActions';
+import Layout from '../shared/Layout';
+import { Carrito } from '../../mocks/Carrito';
+import { getCheckoutListArray } from '../../store/reducers/CarritoReducers';
 
 const S = {
-    Layout: styled(View) `
-        flex: 1;
-        padding-top: 20px;
-    `,
-    Header: styled(View) `
-        flex-direction: row;
-        justify-content: space-between;
-        background-color: #aa072a;
-        padding: 10px;
-    `,
     Title: styled(Text) `
         font-size: 20px;
         padding: 10px;
@@ -50,72 +43,48 @@ type Props = {
 
 class CarritoList extends React.Component<Props, any> {
 
-    constructor(props) {
-        super(props)
-    }
-
-    state = {
-        filter: 'precio',
-        list: [1, 2, 3, 4, 5, 6, 7]
-    }
 
     onPressArrowBack = () => {
         this.props.navigation.goBack();
     }
 
-    openCarta = () => {
-        this.props.navigation.navigate(Routes.Carta);
+    selectPayment = () => {
+        this.props.navigation.navigate(Routes.PaymentsList)
     }
 
-    updateCarrito = (id, quantity) => {
-        const nuevoCarrito = this.props.carrito.map(
-            (item) => {
-                if (item._id === id) { 
-                    return {...item,quantity};
-                }
-                return item;
-            });
-        this.props.actions.updateCarrito(nuevoCarrito);
+    componentDidUpdate () {
+        console.log(this.props.items)
     }
 
     render() {
-        const total = this.props.carrito.reduce((acc,item) => +(item.quantity) * +(item.price) + acc, 0)
         return (
-            <S.Layout>
-                <S.Header>
-                    <Icon name='arrow-back' onPress={this.onPressArrowBack} />
-                </S.Header>
-
-                <S.Title>Carrito de Compras</S.Title>
+            <Layout iconLeft='arrow-back' onPressLeft={this.onPressArrowBack}>
+                <S.Title>Checkout</S.Title>
 
                 <ScrollView>
-
-                    {this.props.carrito.map((item) => {
-                        return <CartItem key={item._id} data={item} onUpdate={this.updateCarrito} />
-                    })}
+                    { this.props.items.map((item) => (<CartItem key={item._id} data={item} />))}
                 </ScrollView>
                 <S.Card>
                     <S.Content>
                         <H4>Total</H4>
                     </S.Content>
                     <S.Total>
-                        <Text>S/.{total}</Text>
+                        <Text>S/.{this.props.total}</Text>
                     </S.Total>
-                    <Button onPress= {() => this.props.navigation.navigate(Routes.PaymentsList)}>OK</Button>
+                    <Button onPress={this.selectPayment}>OK</Button>
                 </S.Card>
-            </S.Layout>
+            </Layout>
         )
     }
 }
 const mapStateToProps = (state: IStore, ownProps) => ({
-    carrito: state.Carrito
+    items: getCheckoutListArray(state.Carrito)
+    total: 0
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     actions: {
-        getLocales: (filter) => dispatch(CarritoActions.getAll(filter)),
-        updateCarrito: (list) => dispatch(CarritoActions.UpdateCarrito(list)),
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarritoList);
+export default connect(mapStateToProps, null)(CarritoList);

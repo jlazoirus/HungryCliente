@@ -28,10 +28,15 @@ const S = {
 
 type Props = {
   data: any;
-  onPress: any;
+  onSelect: any;
 }
 
 export default class Plate extends React.Component<Props, any> {
+
+
+  selectPlate = () => {
+    this.props.onSelect(this.props.data);
+  }
   
   render() {
     return (
@@ -48,7 +53,9 @@ export default class Plate extends React.Component<Props, any> {
           <Text>{this.props.data.about}</Text>
         </S.Content>
         <S.ViewMore>
-          <Icon name="add-circle" active onPress={this.props.onPress}/>
+          <Icon 
+            name="add-circle"  
+            onPress={this.selectPlate}/>
         </S.ViewMore>
       </S.Card>
     );

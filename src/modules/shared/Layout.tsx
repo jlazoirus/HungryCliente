@@ -22,25 +22,30 @@ const S = {
 }
 
 type Props = {
-    onMenuPress: Function
+    onPressLeft: any,
+    onPressRight: any,
+    iconLeft: string,
+    iconRight: string,
 }
 
 // todo: Create a Reusable component we can use in all the screens
 export default class Layout extends React.Component<Props, any> {
-    onPressMenu = () => {
-        if (this.props.onMenuPress) {
-            this.props.onMenuPress();
-        }
+
+    static defaultProps = {
+        iconLeft: 'menu',
+        iconRight: 'search',
+        onPressLeft: (_) => null,
+        onPressRight: (_) => null
     }
 
   render() {
     return (
       <S.Layout>
         <S.Header>
-          <Icon name="menu" onPress={this.onPressMenu} />
-          <Icon name="search" />
+          <Icon name={this.props.iconLeft} onPress={this.props.onPressLeft} />
+          <Icon name={this.props.iconRight} onPress={this.props.onPressRight} />
         </S.Header>
-        { this.props.children}
+        { this.props.children }
       </S.Layout>
     );
   }
