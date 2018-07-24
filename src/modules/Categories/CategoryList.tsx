@@ -9,11 +9,12 @@ import { connect } from 'react-redux';
 import { IStore } from '../../store/reducers/index';
 import { CategoriesActions } from '../../store/actions/CategoriesActions';
 import { Routes } from '../../Routes';
+import { PaymentActions } from '../../store/actions/PaymentsActions';
 
 type Props = {
   navigation: NavigationScreenProp<any>;
   actions: {
-    getCategories: (filter?: string) => {}
+    [key: string]: Function
   },
   categories: any
 };
@@ -69,13 +70,7 @@ class CategoryList extends React.Component<Props, State> {
   };
 
   componentDidMount () {
-    // To use the list from the Store
-    // We need to add a
-    // (1) Create a Fetch Action into the action file
-    // (2) add it in mapDispatchToProps
-    // (3) add the new prop in mapStateToProps
-    // (4) Add into connect()()
-    // (5) Use the list form props
+    this.props.actions.resetCheckout();
     this.props.actions.getCategories();
   }
 
@@ -142,7 +137,8 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   actions: {
-    getCategories: (categoryName?: string) => dispatch(CategoriesActions.getAll(categoryName || ''))
+    getCategories: (categoryName?: string) => dispatch(CategoriesActions.getAll(categoryName || '')),
+    resetCheckout() { dispatch(PaymentActions.paymentFinished())}
   }
 })
 

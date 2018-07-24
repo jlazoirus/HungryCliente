@@ -12,6 +12,8 @@ import PaymentsList from './modules/Payments/PaymentList';
 import PaymentForm from './modules/Payments/PaymentForm';
 import PaymentUpdateForm from './modules/Payments/PaymentUpdateForm';
 import PlateTeaser from './modules/Restaurant/CartaTeaser';
+import ConfirmPayment from './modules/Carrito/ConfirmPayment';
+import ETAScreen from './modules/Carrito/ETAScreen';
 
 export const Routes = {
     splash: 'SplashScreen',
@@ -30,6 +32,8 @@ export const Routes = {
     cerrar_session: 'Cerrar Session',
     Historial: 'Historial',
     Carrito: 'Carrito',
+    confirmPayment: 'Confirm payment',
+    ETAScreen: 'ETA'
 }
 const RoutesApp = createSwitchNavigator({
     SplashScreen,
@@ -46,6 +50,8 @@ const RoutesApp = createSwitchNavigator({
             [Routes.Carta]: Carta,
             [Routes.Carrito]: Carrito,
             [Routes.PaymentsList]: PaymentsList,
+            [Routes.confirmPayment]: ConfirmPayment,
+            [Routes.ETAScreen]: ETAScreen
         }, { headerMode: 'none'}),
         [Routes.Historial]: Historial,
         [Routes.Payments]: createStackNavigator({
