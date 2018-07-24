@@ -28,10 +28,15 @@ const S = {
 
 type Props = {
   data: any;
-  onPress: any;
+  onSelect: any;
 }
 
-export default class PlateTeaser extends React.Component<Props, any> {
+export default class Plate extends React.Component<Props, any> {
+
+
+  selectPlate = () => {
+    this.props.onSelect(this.props.data);
+  }
   
   render() {
     return (
@@ -44,12 +49,13 @@ export default class PlateTeaser extends React.Component<Props, any> {
         </S.Image>
         <S.Content>
           <H4>{this.props.data.company}</H4>
-          <Text>{this.props.data.about.split('').splice(0, 40).join('')} ...</Text>
           <Text>{this.props.data.price}</Text>
-          <A>Ingredientes > </A>
+          <Text>{this.props.data.about}</Text>
         </S.Content>
         <S.ViewMore>
-          <Icon name="add-circle" active onPress={this.props.onPress}/>
+          <Icon 
+            name="add-circle"  
+            onPress={this.selectPlate}/>
         </S.ViewMore>
       </S.Card>
     );

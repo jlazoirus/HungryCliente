@@ -1,110 +1,106 @@
-import * as React from 'react'
-import { View, Text, Dimensions, ScrollView } from 'react-native';
-import { Icon} from 'native-base';
-import { Carousel } from 'nachos-ui';
-import * as rne from 'react-native-elements';
+import * as React from "react";
+import { View, Text, ScrollView } from "react-native";
 import styled from "styled-components";
+import { NavigationScreenProp } from "react-navigation";
+import Plate from "./CartaTeaser";
+import { CartaActions } from "../../store/actions/CartaActions";
+import { Gallery } from "../shared/Gallery";
+import Layout from "../shared/Layout";
+import { connect } from 'react-redux';
+import { CarritoActions } from '../../store/actions/CarritoActions';
+import { MenuFilter } from './menu/MenuFilter';
 import { Routes } from '../../Routes';
-import { NavigationScreenProp } from 'react-navigation';
-import PlateTeaser from './CartaTeaser';
-import { CartaActions } from '../../store/actions/CartaActions';
 
-const screen_width = Dimensions.get("window").width;
 const S = {
-    Layout: styled(View)`
-        flex: 1;
-        padding-top: 20px;
-    `,
-    Header: styled(View)`
-        flex-direction: row;
-        justify-content: space-between;
-        background-color: #aa072a;
-        padding: 10px;
-    `,
-    Title: styled(Text)`
-        font-size: 20px;
-        padding: 10px;
-    `,
-    Options: styled(View)`
-        flex-direction: row;
-        justify-content: space-around;
-        margin-bottom: 10px;
-    `,
-}
+  Title: styled(Text)`
+    font-size: 20px;
+    padding: 10px;
+  `,
+  Options: styled(View)`
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  `
+};
 
 type Props = {
   navigation: NavigationScreenProp<any>;
-}
+  actions: {
+    [key: string]: Function
+  }
+};
 
-export default class Carta extends React.Component<Props, any> {
+class Carta extends React.Component<Props, any> {
 
-    constructor(props) {
-        super(props)
-    }
 
-    state = {
-        filter: 'precio',
-        list: []
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-        // If we don't need the list in other components 
-        // we can only make the request and then Update the state with the list
-        CartaActions.fetchCarta(123).then(list => this.setState({ list }))
-    }
+  list: any[] = [];
 
-    onPressArrowBack = () => {
-        this.props.navigation.goBack();
-    }
+  state = {
+    filter: null,
+    displayedList: [],
+    name: 'Mama Raquel'
+  };
 
-    onPressCart = () => {
-        this.props.navigation.navigate(Routes.Carrito);
-    }
+  async componentDidMount() {
+    this.list = await CartaActions.fetchCarta(123);
+    this.setState({ displayedList: this.list });
+  }
+
+  onPressArrowBack = () => {
+    this.props.navigation.goBack();
+  };
+
+  addToCheckout = (item) => {
+    this.props.actions.addToCheckout(item);
+    this.goToCheckout();
+  }
+
+  goToCheckout = () => {
+    this.props.navigation.navigate(Routes.Carrito);
+  };
+
+  updateFilter = filter => {
+    const displayedList = this.list.filter(
+      item => (item as any).deliveryType.indexOf(filter) > -1
+    );
+    this.setState({ displayedList, filter });
+  };
 
   render() {
     return (
-      <S.Layout>
-        <S.Header>
-            <Icon name='arrow-back' active onPress={this.onPressArrowBack}/>
-            <Icon name='cart' active onPress={this.onPressCart}/>
-        </S.Header>
+        <Layout
+            iconLeft="arrow-back"
+            iconRight="cart"
+            onPressLeft={this.onPressArrowBack}
+            onPressRight={this.goToCheckout} >
 
-        <View style={{width: screen_width, height: 100}}>
-            <Carousel
-                width={screen_width}
-                height={200}
-                images={[
-                    `https://placehold.it/${screen_width}/311112`,
-                    `https://placehold.it/${screen_width}/59C480`,
-                    `https://placehold.it/${screen_width}/546C80`,
-                ]}
-            />
-        </View>
+            <Gallery />
 
-        <S.Title>Nombre del Negocio</S.Title>
-        
-        <ScrollView>
-            <S.Options>
-                <View>
-                    <rne.Icon raised name='bicycle' type='font-awesome' color='#aa072a' onPress={() => console.log('hello')} />
-                    <Text>Para Llevar</Text>
-                </View>
-                <View>
-                    <rne.Icon raised name='calendar' type='font-awesome' color='#aa072a' onPress={() => console.log('hello')} />
-                    <Text>Reservar</Text>
-                </View>
-                <View>
-                    <rne.Icon raised name='paper-plane' type='font-awesome' color='#aa072a' onPress={() => console.log('hello')} />
-                    <Text>Delivery</Text>
-                </View>
-            </S.Options>
+            <S.Title>{this.state.name}</S.Title>
+            
+            <ScrollView>
+                <MenuFilter currentFilter={this.state.filter} onSelectFilter={this.updateFilter} />
+                
+                {this.state.displayedList.map((item: any) => (
+                    <Plate  key={item._id}  data={item}  onSelect={this.addToCheckout}  />
+                ))}
+            </ScrollView>
 
-            { this.state.list.map((item: any) => <PlateTeaser key={item._id} data={item} onPress={this.onPressCart} /> )}
-
-        </ScrollView>
-
-      </S.Layout>
-    )
+        </Layout>
+    );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: {
+    addToCheckout: (item) => dispatch(CarritoActions.addToCarrito(item))
+  }
+})
+
+export default connect(null, mapDispatchToProps)(Carta);
+
 
