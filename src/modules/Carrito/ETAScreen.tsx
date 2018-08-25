@@ -1,22 +1,26 @@
 import * as React from 'react'
 import { Text, View } from 'react-native'
 import Layout from '../shared/Layout';
-import { NavigationScreenProp } from 'react-navigation';
 import { Routes } from '../../Routes';
 
+import styled from 'styled-components';
 
-type Props = {
-  navigation: NavigationScreenProp<any>;
-  carrito: any[];
-  total: any;
-  items: any;
-  actions: any;
-}
+const Wrapper = styled(View)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
-export default class ETAScreen extends React.Component<Props, any> {
+const HeaderText = styled(Text)`
+  font-size: 20px;
+  font-weight: bold;
+  margin: 50px;
+`;
+
+
+export default class ETAScreen extends React.Component<any, any> {
 
   openDrawer = () => {
-    // this.props.navigation.openDrawer();
     this.props.navigation.navigate(Routes.CategoryList)
 
   }
@@ -27,7 +31,12 @@ export default class ETAScreen extends React.Component<Props, any> {
   render() {
     return (
       <Layout onPressLeft={this.openDrawer} onPressRight={this.goCategories}>
-          <Text>Tu tiempo estimado de espera es ... </Text>
+          <Wrapper>
+            <HeaderText>Todo listo!</HeaderText>
+            <Text>Tu Pedido fue confirmado y estara Listo en:</Text>
+            <Text>[icono de reloj]</Text>
+            <Text>36 minutos</Text>
+          </Wrapper>
       </Layout>
     )
   }
