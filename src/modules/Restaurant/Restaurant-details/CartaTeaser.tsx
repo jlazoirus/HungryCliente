@@ -1,10 +1,8 @@
 import * as React from "react";
 import { Text, View, Image } from "react-native";
-import { H4, A } from "nachos-ui";
+import { H4 } from "nachos-ui";
 import { Icon } from "native-base";
 import styled from "styled-components";
-import { NavigationScreenProp } from 'react-navigation';
-import { Routes } from '../../Routes';
 
 const S = {
     Card: styled(View)`

@@ -1,4 +1,5 @@
 import { Locales } from '../../mocks/Locales';
+import { shuffle } from '../../shared/utils';
 
 export enum RestaurantsActionTypes {
     RESTAURANTS_FETCH = '[RESTAURANTS] FETCH',
@@ -8,9 +9,7 @@ export enum RestaurantsActionTypes {
 }
 
 const fetchRestaurants = (filter) => {
-    // return fetch('https://www.google.com/search?q=secret+sauce');
-    // Coz We are using mocks , we will handle them as Promises
-    return Promise.resolve(Locales.splice(0,4))
+    return Promise.resolve(shuffle(Locales, 5))
 }
 
 const RestaurantsSuccess = (list) => ({
@@ -24,13 +23,14 @@ const RestaurantsError = () => ({
 })
 
 // Function that returns a Function that returns a Promise
-export const getAll = (filter: string) => (dispatch) => {
-    return fetchRestaurants(filter).then(
-        restaurants => dispatch(RestaurantsSuccess(restaurants)),
-        error => dispatch(RestaurantsError())
-    );
+export const getAll = (filter: string) => async (dispatch) => {
+    try {
+        const restaurants = await fetchRestaurants(filter);
+        dispatch(RestaurantsSuccess(restaurants));
+    } catch (error) {
+        dispatch(RestaurantsError())
+    }
 }
-    
 
 export const RestaurantsActions = {
     getAll,

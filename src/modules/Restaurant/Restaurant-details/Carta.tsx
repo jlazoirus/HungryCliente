@@ -3,13 +3,13 @@ import { View, Text, ScrollView } from "react-native";
 import styled from "styled-components";
 import { NavigationScreenProp } from "react-navigation";
 import Plate from "./CartaTeaser";
-import { CartaActions } from "../../store/actions/CartaActions";
-import { Gallery } from "../shared/Gallery";
-import Layout from "../shared/Layout";
+import { CartaActions } from "../../../store/actions/CartaActions";
+import { Gallery } from "../../shared/Gallery";
+import Layout from "../../shared/Layout";
 import { connect } from 'react-redux';
-import { CarritoActions } from '../../store/actions/CarritoActions';
-import { MenuFilter } from './menu/MenuFilter';
-import { Routes } from '../../Routes';
+import { CarritoActions } from '../../../store/actions/CarritoActions';
+import { MenuFilter } from '../menu/MenuFilter';
+import { Routes } from '../../../Routes';
 
 const S = {
   Title: styled(Text)`
