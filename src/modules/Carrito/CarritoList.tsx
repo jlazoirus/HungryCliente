@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { View, Text, ScrollView } from 'react-native';
-import { Icon } from 'native-base';
 import { Button, H4 } from 'nachos-ui';
 import styled from "styled-components";
 import CartItem from './CarritoItem';
@@ -8,10 +7,9 @@ import { NavigationScreenProp } from 'react-navigation';
 import { Routes } from '../../Routes';
 import { IStore } from '../../store/reducers/index';
 import { connect } from 'react-redux';
-import { CarritoActions } from '../../store/actions/CarritoActions';
 import Layout from '../shared/Layout';
-import { Carrito } from '../../mocks/Carrito';
-import { getCheckoutListArray } from '../../store/reducers/CarritoReducers';
+import { getCheckoutListArray, getTotal } from '../../store/reducers/CarritoReducers';
+import { PaymentActions } from '../../store/actions/paymentActions';
 
 const S = {
     Title: styled(Text) `
@@ -38,6 +36,8 @@ const S = {
 type Props = {
     navigation: NavigationScreenProp<any>;
     carrito: any[];
+    total: any;
+    items: any;
     actions: any;
 }
 
@@ -49,11 +49,8 @@ class CarritoList extends React.Component<Props, any> {
     }
 
     selectPayment = () => {
+        this.props.actions.selectPayment(this.props.total);
         this.props.navigation.navigate(Routes.PaymentsList)
-    }
-
-    componentDidUpdate () {
-        console.log(this.props.items)
     }
 
     render() {
@@ -62,7 +59,8 @@ class CarritoList extends React.Component<Props, any> {
                 <S.Title>Checkout</S.Title>
 
                 <ScrollView>
-                    { this.props.items.map((item) => (<CartItem key={item._id} data={item} />))}
+                    { this.props.items.map((item) => 
+                        (<CartItem key={item._id} data={item} />))}
                 </ScrollView>
                 <S.Card>
                     <S.Content>
@@ -77,14 +75,17 @@ class CarritoList extends React.Component<Props, any> {
         )
     }
 }
-const mapStateToProps = (state: IStore, ownProps) => ({
-    items: getCheckoutListArray(state.Carrito)
-    total: 0
+const mapStateToProps = (state: IStore) => ({
+    items: getCheckoutListArray(state.Carrito),
+    total: getTotal(state.Carrito)
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    actions: {
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: {
+            selectPayment (total) { dispatch(PaymentActions.addTotal(total))}
+        }
     }
-})
+}
 
-export default connect(mapStateToProps, null)(CarritoList);
+export default connect(mapStateToProps, mapDispatchToProps)(CarritoList);

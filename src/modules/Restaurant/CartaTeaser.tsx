@@ -49,7 +49,7 @@ export default class Plate extends React.Component<Props, any> {
         </S.Image>
         <S.Content>
           <H4>{this.props.data.company}</H4>
-          <Text>{this.props.data.price}</Text>
+          <Text>s./ {this.props.data.price}</Text>
           <Text>{this.props.data.about}</Text>
         </S.Content>
         <S.ViewMore>

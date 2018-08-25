@@ -8,24 +8,6 @@ const S = {
         flex-direction: row;
         justify-content: space-between;
     `,
-    Minus: styled(Icon)`
-        flex: 1;
-        border-color: #aa072a;
-        border-width: 1px;
-        border-radius: 25px;
-    `,
-    Plus: styled(Icon)`
-        width: 20px;
-        flex: 1;
-        border-color: #aa072a;
-        border-width: 1px;
-        border-radius: 25px;
-    `,
-    Number: styled(Text)`
-        width: 20px;
-        font-size: 18px;
-        flex: 1;
-    `,
 }
 
 type Props = {
@@ -34,8 +16,12 @@ type Props = {
     onUpdate: Function,
 }
 
-// todo: Create a Reusable component we can use in all the screens
 class NumberPicker extends React.Component<Props, any> {
+
+    static defaultProps = {
+        quantity: 1
+    }
+
     onPlusPress = () => {
         this.props.onUpdate(this.props.id, +(this.props.quantity) + 1);
     }

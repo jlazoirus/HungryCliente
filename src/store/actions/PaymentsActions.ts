@@ -4,6 +4,10 @@ export enum PaymentsActionTypes {
   PAYMENTS_FETCH = '[PAYMENTS] FETCH',
   PAYMENTS_SUCCESS = '[PAYMENTS] SUCCESS',
   PAYMENTS_ERROR = '[PAYMENTS] ERROR',
+    start = '[PAYMENT] start',
+    end = '[CATEGORIES] end',
+    add_total = '[CATEGORIES] add total',
+    add_card = '[CATEGORIES] add card',
 
 }
 
@@ -31,7 +35,26 @@ export const getPayments = () => (dispatch) => {
     );
 }
 
+
+const addTotal = (total) => ({
+    type: PaymentsActionTypes.add_total,
+    payload: total
+});
+
+const addCard = (payload) => ({
+    type: PaymentsActionTypes.add_card,
+    payload
+});
+
+
+const paymentFinished = () => ({
+    type: PaymentsActionTypes.end,
+});
+
 export const PaymentActions = {
     getPayments,
     fetchPayments,
+    addTotal,
+    addCard,
+    paymentFinished
 }

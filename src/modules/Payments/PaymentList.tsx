@@ -8,14 +8,19 @@ import * as _ from 'lodash';
 import { PaymentActions } from '../../store/actions/PaymentsActions';
 import { Routes } from '../../Routes';
 import { Cards } from '../../mocks/Cards';
+import { connect } from 'react-redux';
+import { IStore } from '../../store/reducers/index';
 
 type Props = {
   navigation: NavigationScreenProp<any>;
   actions: {
-    getPayments: () => {}
+    [key: string]: Function
   },
   onPressTeaser: Function,
-  payment: any
+  payment: any,
+  checkoutInProgress: boolean,
+  iconLeft: string,
+  
 };
 
 type State = {
@@ -31,57 +36,58 @@ class PaymentsList extends React.Component<Props, State> {
     PaymentActions.fetchPayments().then(list => this.setState({ list }))
   }
 
-  onPressMethod = () => {
-    this.props.navigation.navigate(Routes.Payment);
+  onPressMethod = (payment) => () => {
+    if (this.props.checkoutInProgress){
+      this.props.actions.addPayment({...payment});
+      this.props.navigation.navigate(Routes.confirmPayment);
+
+    } else {
+      this.props.navigation.navigate(Routes.Payment);
+    }
   }
 
   addMethod = () => {
     this.props.navigation.navigate(Routes.PaymentUpdateForm);
   }
 
-  openMenu = () => {
-    this.props.navigation.openDrawer();
+  onPressIconLeft = () => {
+    if (!this.props.checkoutInProgress) {
+      this.props.navigation.openDrawer();
+    } else {
+      this.props.navigation.goBack();
+    }
   }
 
   getIcon = (operatorId) => {
     return _.find(Cards, {id: operatorId}).image;
   }
 
-  getCard(payment) {
-    let text:any = payment.operator !== 5 ? (
-      <S.Content>
-        <H4>****&nbsp;****&nbsp;****&nbsp;{payment.digits}</H4>
-        <Text>{payment.expiration}</Text>
-      </S.Content>
-    ): <S.Content><Text>Efectivo</Text></S.Content>;
-
-    return <S.Card key={payment.id}>
-      <S.Image>
-        <Image
-          style={{ width: 50, height: 50 }}
-          source={{ uri: this.getIcon(payment.operator)}}
-        />
-      </S.Image>
-      { text }
-      <S.ViewMore>
-        <Icon name="arrow-dropright" onPress={this.onPressMethod} />
-      </S.ViewMore>
-    </S.Card>
-  }
 
   render() {
     return (
       <S.Layout>
         <S.Header>
-          <Icon name='menu' onPress={this.openMenu} />
+          <Icon name={this.props.iconLeft}
+               onPress={this.onPressIconLeft} />
           <Text style={{ fontSize: 30 }}>Métodos de Pago</Text>
           <Icon name='cart'/>
         </S.Header>
         <ScrollView>
             {
-              _.map(this.state.list, (payment) => {
-                return this.getCard(payment);
-              })
+              _.map(this.state.list, (payment) => (
+                <S.Card key={payment.id}>
+                  <S.Image>
+                    <Image style={{ width: 50, height: 50 }} source={{ uri: this.getIcon(payment.operator)}} />
+                  </S.Image>
+                  <PaymentCardText 
+                    {...payment} 
+                    label={payment.operator === 5 && 'Efectivo' || '**** **** **** ' + payment.digits } 
+                  />
+                  <S.ViewMore>
+                    <Icon name="arrow-dropright" onPress={this.onPressMethod(payment)} />
+                  </S.ViewMore>
+                </S.Card>
+              ))
             }
             <S.Card>
               <S.Image></S.Image>
@@ -104,10 +110,10 @@ const S = {
       background-color: #EAE9EF;
   `,
   Header: styled(View) `
-   flex-direction: row;
-   justify-content: space-between;
-   background-color: #aa072a;
-   padding: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #aa072a;
+    padding: 10px;
   `,
   Card: styled(View)`
       flex-direction: row;
@@ -127,5 +133,29 @@ const S = {
       justify-content: center;
   `,
 };
-export default PaymentsList;
+
+const PaymentCardText = ({expiration, label}) => {
+  return (
+    <S.Content>
+      {<H4>{label}</H4>}
+      <Text>{expiration}</Text>
+    </S.Content>
+  )
+}
+
+const mapStateToProps = (state: IStore) => {
+  return {
+    checkoutInProgress: state.payment.inProgress,
+    iconLeft: state.payment.inProgress && 'arrow-back' || 'menu'
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    actions: {
+      addPayment(card) {  dispatch(PaymentActions.addCard(card))}
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentsList);
 

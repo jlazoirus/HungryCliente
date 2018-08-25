@@ -6,6 +6,8 @@ export enum CarritoActionTypes {
     CARRITO_ERROR = '[CARRITO] ERROR',
     CARRITO_UPDATE = '[CARRITO] UPDATE',
     CARRITO_ADD_ITEM = '[CARRITO] ADD ITEM',
+    UPDATE_PLATE = '[CARRITO] UPDATE ITEM',
+    DELETE_PLATE = '[CARRITO] DELETE ITEM',
 
 }
 
@@ -35,6 +37,20 @@ function addToCarrito(plate) {
     }
 }
 
+function updatePlate(payload) {
+    return {
+        type: CarritoActionTypes.UPDATE_PLATE,
+        payload
+    }
+}
+
+function deletePlate (payload) {
+    return {
+        type: CarritoActionTypes.DELETE_PLATE,
+        payload
+    }
+}
+
 // Function that returns a Function that returns a Promise
 export const getAll = (filter: string) => (dispatch) => {
     return fetchCarrito(filter).then(
@@ -47,5 +63,7 @@ export const getAll = (filter: string) => (dispatch) => {
 export const CarritoActions = {
     getAll,
     UpdateCarrito,
-    addToCarrito
+    addToCarrito,
+    updatePlate,
+    deletePlate
 }

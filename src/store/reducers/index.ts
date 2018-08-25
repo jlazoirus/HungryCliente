@@ -5,6 +5,7 @@ import expoFontReducer from "./expoFontReducer";
 import RestaurantsReducer from './RestaurantsReducer';
 import CategoriesReducer from './CategoriesReduce';
 import CarritoReducer from './CarritoReducers';
+import PaymentReducer from './paymentReducer';
 
 
 export interface IStore {
@@ -14,6 +15,7 @@ export interface IStore {
     restaurants: any[],
     categories: any[],
     Carrito: any[],
+    payment: { [key: string]: any}
 }
 
 const rootReducer = combineReducers({
@@ -22,7 +24,8 @@ const rootReducer = combineReducers({
     expoFont: expoFontReducer,
     restaurants: RestaurantsReducer,
     categories: CategoriesReducer,
-    Carrito: CarritoReducer
+    Carrito: CarritoReducer,
+    payment: PaymentReducer
 });
 
 export default rootReducer;
