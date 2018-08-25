@@ -9,7 +9,7 @@ import { IStore } from '../../store/reducers/index';
 import { connect } from 'react-redux';
 import Layout from '../shared/Layout';
 import { getCheckoutListArray, getTotal } from '../../store/reducers/CarritoReducers';
-import { PaymentActions } from '../../store/actions/paymentActions';
+import { PaymentActions } from '../../store/actions/PaymentsActions';
 
 const S = {
     Title: styled(Text) `

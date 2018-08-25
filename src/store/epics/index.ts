@@ -11,5 +11,5 @@ export default combineEpics(
     EpicUserFetch,
     EpicUserLogout,
     epicExpoFontFetch,
-    EpicUserOnAuthStateChanged,
+    // EpicUserOnAuthStateChanged, @todo: removed to allow fast mock login
 )
