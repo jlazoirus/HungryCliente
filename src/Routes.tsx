@@ -36,9 +36,6 @@ export const Routes = {
     ETAScreen: 'ETA'
 }
 const RoutesApp = createSwitchNavigator({
-
-    [Routes.ETAScreen]: ETAScreen,
-    
     SplashScreen,
     auth: createStackNavigator({
         Login,
