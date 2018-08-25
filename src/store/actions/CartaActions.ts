@@ -1,4 +1,5 @@
 import { Carta } from '../../mocks/Carta';
+import { shuffle } from '../../shared/utils';
 
 export enum CartaActionTypes {
     CARTA_FETCH = '[CARTA] FETCH',
@@ -8,9 +9,7 @@ export enum CartaActionTypes {
 }
 
 export const fetchCarta = (restaurantId: any) => {
-    // return fetch('https://www.google.com/search?q=secret+sauce');
-    // Coz We are using mocks , we will handle them as Promises
-    return Promise.resolve(Carta.splice(0,4))
+    return Promise.resolve(shuffle(Carta, 5))
 }
 
 export const CartaFetchSuccess = (list) => ({
