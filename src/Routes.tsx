@@ -4,16 +4,16 @@ import Register from './modules/User/Register';
 import Logout from './modules/User/Logout';
 import SplashScreen from './modules/Splash/SplashScreen';
 import CategoryList from './modules/Categories/CategoryList';
-import RestaurantList from './modules/Restaurant/RestaurantList';
-import Carta from './modules/Restaurant/Carta';
+import Carta from './modules/Restaurant/Restaurant-details/Carta';
 import Historial from './modules/Historial/historialList';
 import Carrito from './modules/Carrito/CarritoList';
 import PaymentsList from './modules/Payments/PaymentList';
 import PaymentForm from './modules/Payments/PaymentForm';
 import PaymentUpdateForm from './modules/Payments/PaymentUpdateForm';
-import PlateTeaser from './modules/Restaurant/CartaTeaser';
+import PlateTeaser from './modules/Restaurant/Restaurant-details/CartaTeaser';
 import ConfirmPayment from './modules/Carrito/ConfirmPayment';
 import ETAScreen from './modules/Carrito/ETAScreen';
+import RestaurantList from './modules/Restaurant/RestaurantList/RestaurantList';
 
 export const Routes = {
     splash: 'SplashScreen',
