@@ -2,7 +2,7 @@ import * as React from 'react'
 import { View, Text, ScrollView } from 'react-native';
 import { Button, H4 } from 'nachos-ui';
 import styled from "styled-components";
-import CartItem from './CarritoItem';
+import CartItem from './CheckoutItem';
 import { NavigationScreenProp } from 'react-navigation';
 import { Routes } from '../../Routes';
 import { IStore } from '../../store/reducers/index';
@@ -57,7 +57,6 @@ class CarritoList extends React.Component<Props, any> {
         return (
             <Layout iconLeft='arrow-back' onPressLeft={this.onPressArrowBack}>
                 <S.Title>Checkout</S.Title>
-
                 <ScrollView>
                     { this.props.items.map((item) => 
                         (<CartItem key={item._id} data={item} />))}

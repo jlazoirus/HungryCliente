@@ -9,6 +9,8 @@ import { Button } from 'nachos-ui';
 import { getCheckoutListArray, getTotal } from '../../store/reducers/CarritoReducers';
 import { PaymentActions } from '../../store/actions/PaymentsActions';
 import { Routes } from '../../Routes';
+import PaymentCard from '../Payments/PaymentCard';
+import CheckoutItem from './CheckoutItem';
 
 const S = {
   Title: styled(Text)`
@@ -34,10 +36,6 @@ type Props = {
 
 class ConfirmPayment extends React.Component<Props, any> {
 
-  onPressArrowBack = () => {
-    this.props.navigation.goBack();
-  }
-
   showETA = () => {
     this.props.actions.checkoutEnd();
     this.props.navigation.navigate(Routes.ETAScreen)
@@ -45,13 +43,10 @@ class ConfirmPayment extends React.Component<Props, any> {
   
   render() {
     return (
-        <Layout
-            iconLeft="arrow-back"
-            onPressLeft={this.onPressArrowBack}>
-
-            <Text>Confirmar Tarjeta y Monto total ...</Text>
+        <Layout iconLeft="arrow-back" onPressLeft={this.props.navigation.goBack}>
+            <PaymentCard showViewMore={false} />
+            <CheckoutItem  isEditMode={false} />
             <Button onPress={this.showETA}>Pagar</Button>
-
         </Layout>
     );
   }
