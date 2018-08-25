@@ -17,7 +17,8 @@ export function userOnAuthStateChanged (): Action {
 }
 
 export const actionUserFetch = (payload): AnyAction => ({
-    type: UserActionTypes.USER_FETCH,
+    // type: UserActionTypes.USER_FETCH,
+    type: UserActionTypes.USER_FETCH_SUCCESS,
     payload
 })
 
