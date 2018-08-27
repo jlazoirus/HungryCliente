@@ -4,6 +4,7 @@ import Layout from '../shared/Layout';
 import { Routes } from '../../Routes';
 
 import styled from 'styled-components';
+import { Icon } from 'native-base';
 
 const Wrapper = styled(View)`
   display: flex;
@@ -34,8 +35,8 @@ export default class ETAScreen extends React.Component<any, any> {
           <Wrapper>
             <HeaderText>Todo listo!</HeaderText>
             <Text>Tu Pedido fue confirmado y estara Listo en:</Text>
-            <Text>[icono de reloj]</Text>
-            <Text>36 minutos</Text>
+            <Icon name="time" style={{ fontSize: 150, marginTop: 30, marginBottom: 30, }}/>
+            <Text style={{ fontSize: 20 }} >En 36 minutos, su orden estará lista</Text>
           </Wrapper>
       </Layout>
     )
