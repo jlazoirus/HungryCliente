@@ -3,6 +3,7 @@
     "name": "hungry",
     "slug": "hungry-app",
     "sdkVersion": "25.0.0",
-    "privacy":"public"
+    "privacy":"public",
+    "orientation": "portrait"
   }
 }
