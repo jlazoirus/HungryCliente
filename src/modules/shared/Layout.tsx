@@ -33,18 +33,25 @@ export default class Layout extends React.Component<Props, any> {
 
     static defaultProps = {
         iconLeft: 'menu',
-        iconRight: 'search',
+        iconRight: '',
         onPressLeft: (_) => null,
         onPressRight: (_) => null
+    }
+
+    getHeader = () => {
+        let leftIconEl = this.props.iconLeft ? <Icon name={this.props.iconLeft} onPress={this.props.onPressLeft} /> : null,
+            rightIconEl = this.props.iconRight ? <Icon name={this.props.iconRight} onPress={this.props.onPressRight} /> : null;
+        return <S.Header>
+            {leftIconEl}
+            {rightIconEl}
+        </S.Header>
     }
 
   render() {
     return (
       <S.Layout>
-        <S.Header>
-          <Icon name={this.props.iconLeft} onPress={this.props.onPressLeft} />
-          <Icon name={this.props.iconRight} onPress={this.props.onPressRight} />
-        </S.Header>
+        {this.getHeader()}
+
         { this.props.children }
       </S.Layout>
     );

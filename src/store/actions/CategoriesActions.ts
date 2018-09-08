@@ -33,6 +33,16 @@ const CategoriesError = () => ({
     type: CategoriesActionTypes.CATEGORIES_ERROR
 })
 
+let selectedCategory = {id:0};
+
+const selectCategory = (categoryId: number) => {
+    selectedCategory.id = categoryId;
+};
+
+const getCategorySelected = () => {
+    selectedCategory.id;
+};
+
 // Function that returns a Function that returns a Promise
 export const getAll = (filter: string) => (dispatch) => {
     return fetchCategories(filter).then(
@@ -44,4 +54,6 @@ export const getAll = (filter: string) => (dispatch) => {
 
 export const CategoriesActions = {
     getAll,
+    selectCategory,
+    getCategorySelected
 }
