@@ -47,7 +47,7 @@ export default class HistorialTeaser extends React.Component<Props, any> {
           <Text>Descripcion del pedido</Text>
         </S.Content>
         <S.ViewMore>
-          <Icon name="ios-help-circle" />
+          <Icon name="arrow-dropright" />
         </S.ViewMore>
       </S.Card>
     );
