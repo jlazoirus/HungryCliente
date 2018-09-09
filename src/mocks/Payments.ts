@@ -18,9 +18,4 @@ export const Payments = [{
     operator: 4,
     digits: '1234',
     expiration: '01/2020'
-  }, {
-    id: 5,
-    operator: 5,
-    digits: '',
-    expiration: ''
   }];

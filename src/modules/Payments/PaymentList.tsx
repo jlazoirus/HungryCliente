@@ -32,10 +32,38 @@ class PaymentsList extends React.Component<Props, State> {
   state = {
     list: []
   };
-
-  componentDidMount () {
-    PaymentActions.fetchPayments().then(list => this.setState({ list }))
+  isCash = this.props.navigation.getParam('isCash', null);
+  componentDidMount() {
+    PaymentActions.fetchPayments().then(
+      (payments) => {
+        let lista = [...payments];
+        if (this.isCash) {
+          lista.push({
+            id: 5,
+            operator: 5,
+            digits: '',
+            expiration: ''
+          });
+        }
+        this.setState({list: lista});
+      }
+    );
   }
+  /*componentDidUpdate() {
+    PaymentActions.fetchPayments().then(
+      (list) => {
+        if (this.isCash) {
+          list.push({
+            id: 5,
+            operator: 5,
+            digits: '',
+            expiration: ''
+          });
+        }
+        this.setState({list});
+      }
+    );
+  }*/
 
   onPressMethod = (payment) => () => {
     if (this.props.checkoutInProgress){
@@ -52,11 +80,12 @@ class PaymentsList extends React.Component<Props, State> {
   }
 
   onPressIconLeft = () => {
-    if (!this.props.checkoutInProgress) {
+    /*if (!this.props.checkoutInProgress) {
       this.props.navigation.openDrawer();
     } else {
       this.props.navigation.goBack();
-    }
+    }*/
+    this.props.navigation.goBack();
   }
 
   getIcon = (operatorId) => {
@@ -71,7 +100,6 @@ class PaymentsList extends React.Component<Props, State> {
           <Icon name={this.props.iconLeft}
                onPress={this.onPressIconLeft} />
           <Text style={{ fontSize: 30 }}>Métodos de Pago</Text>
-          <Icon name='cart'/>
         </S.Header>
         <ScrollView>
             { this.state.list.map((payment: any) => 
