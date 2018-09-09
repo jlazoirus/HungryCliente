@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { View, Text, Dimensions } from 'react-native';
-import { Icon} from 'native-base';
 import { Carousel } from 'nachos-ui';
 import styled from "styled-components";
 import { NavigationScreenProp } from 'react-navigation';
@@ -34,6 +33,14 @@ type Props = {
 }
 export default class RestaurantList extends React.Component<Props, any> {
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            categoryId: this.props.navigation.state.params._id,
+            categoryName: this.props.navigation.state.params.name
+        }
+    }
     onPressArrowBack = () => {
     this.props.navigation.goBack();
     }
@@ -47,7 +54,7 @@ export default class RestaurantList extends React.Component<Props, any> {
             <View style={{width: screen_width, height: 100}}>
                 <Carousel width={screen_width} height={100} images={CarouselImages} />
             </View>
-            <S.Title>LUGARES CERCANOS A TI </S.Title>
+            <S.Title>{this.state.categoryName}</S.Title>
             <RestaurantListBody navigate={this.props.navigation.navigate} />
         </Layout>
         )

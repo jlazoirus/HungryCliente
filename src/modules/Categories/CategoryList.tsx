@@ -68,13 +68,8 @@ class CategoryList extends React.Component<Props, State> {
     this.props.actions.resetCheckout();
     this.props.actions.getCategories();
   }
-
-  someMethod() {
-
-  }
-
-  openCategory = (id: number) =>{
-    this.props.navigation.navigate(Routes.RestaurantList);
+  goToCategory = (category: any) => {
+    this.props.navigation.navigate(Routes.RestaurantList, category);
   }
   searchCategory = (filter:string) => {
     this.props.actions.getCategories(filter);
@@ -119,7 +114,7 @@ class CategoryList extends React.Component<Props, State> {
           <S.Options>
             {
               _.map(this.props.categories, (category) => {
-                return <TouchableHighlight onPress= {this.props.actions.openCategory(category._id)} key={category._id}>
+                return <TouchableHighlight onPress={()=>{this.goToCategory(category)}} key={category._id}>
                 <S.Item>
                   <S.Image source={{ uri: category.imgUrl }}></S.Image>
                   <Text >{category.name}</Text>
@@ -141,7 +136,6 @@ const mapStateToProps = (state: IStore, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   actions: {
-    openCategory(categoryId) { dispatch(CategoriesActions.selectCategory(0))},
     getCategories: (categoryName?: string) => dispatch(CategoriesActions.getAll(categoryName || '')),
     resetCheckout() { dispatch(PaymentActions.paymentFinished())}
   }
