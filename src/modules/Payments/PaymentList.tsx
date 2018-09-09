@@ -36,11 +36,7 @@ class PaymentsList extends React.Component<Props, State> {
   componentDidMount() {
     PaymentActions.fetchPayments().then(
       (payments) => {
-        let lista = payments;
-        payments.forEach(element => {
-          console.log("pago");
-          console.log(element.id);
-        });
+        let lista = [...payments];
         if (this.isCash) {
           lista.push({
             id: 5,
@@ -48,7 +44,6 @@ class PaymentsList extends React.Component<Props, State> {
             digits: '',
             expiration: ''
           });
-          console.log("add efectivo");
         }
         this.setState({list: lista});
       }
