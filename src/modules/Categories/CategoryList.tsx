@@ -45,12 +45,6 @@ const S = {
     height: 100%;
     border-radius: 25px;
   `,
-  View: styled(View) `
-    align-items: center;
-    flex-direction: row;
-    background-color: #aa072a;
-    flex:1;
-  `,
   Item: styled(View) `
     width: ${(screen_width / 4) - 10}px;
     height: 75px;
@@ -93,12 +87,6 @@ class CategoryList extends React.Component<Props, State> {
           onPressLeft={this.openMenu}
           onPressRight={this.goToCheckout} >
         <ScrollView>
-          <S.View style={{ width: screen_width, height: 200 }}>
-              <S.Image
-                  style={{height: 150}}
-                  source={require('../../../assets/images/hungrylogo.png')}
-              />
-          </S.View>
           <rne.SearchBar
             clearIcon={{color: 'black'}}
             lightTheme
