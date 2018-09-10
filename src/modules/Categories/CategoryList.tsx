@@ -62,6 +62,9 @@ class CategoryList extends React.Component<Props, State> {
     this.props.actions.resetCheckout();
     this.props.actions.getCategories();
   }
+  goToCategory = (category: any) => {
+    this.props.navigation.navigate(Routes.RestaurantList, category);
+  }
   searchCategory = (filter:string) => {
     this.props.actions.getCategories(filter);
   }
@@ -99,7 +102,7 @@ class CategoryList extends React.Component<Props, State> {
           <S.Options>
             {
               _.map(this.props.categories, (category) => {
-                return <TouchableHighlight onPress= {this.goToRestaurants} key={category._id}>
+                return <TouchableHighlight onPress={()=>{this.goToCategory(category)}} key={category._id}>
                 <S.Item>
                   <S.Image source={{ uri: category.imgUrl }}></S.Image>
                   <Text >{category.name}</Text>
