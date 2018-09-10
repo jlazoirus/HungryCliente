@@ -44,6 +44,7 @@ const RoutesApp = createSwitchNavigator({
         headerMode: 'none'
     }),
     [Routes.main]: createDrawerNavigator({
+        [Routes.Carta]: Carta,
         [Routes.CategoryList]: createStackNavigator({
             [Routes.CategoryList]:CategoryList,
             [Routes.RestaurantList]: RestaurantList,
