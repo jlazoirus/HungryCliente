@@ -5,7 +5,7 @@ import Logout from './modules/User/Logout';
 import SplashScreen from './modules/Splash/SplashScreen';
 import CategoryList from './modules/Categories/CategoryList';
 import Carta from './modules/Restaurant/Restaurant-details/Carta';
-import Historial from './modules/Historial/historialList';
+import HistorialList from './modules/Historial/HistorialList';
 import Carrito from './modules/Carrito/CarritoList';
 import PaymentsList from './modules/Payments/PaymentList';
 import PaymentForm from './modules/Payments/PaymentForm';
@@ -53,7 +53,7 @@ const RoutesApp = createSwitchNavigator({
             [Routes.confirmPayment]: ConfirmPayment,
             [Routes.ETAScreen]: ETAScreen
         }, { headerMode: 'none'}),
-        [Routes.Historial]: Historial,
+        [Routes.Historial]: HistorialList,
         [Routes.Payments]: createStackNavigator({
             [Routes.PaymentsList]: PaymentsList,
             [Routes.Payment]: PaymentForm,
