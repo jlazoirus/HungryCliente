@@ -4,6 +4,7 @@ import { Icon} from 'native-base';
 import styled from "styled-components";
 import { NavigationScreenProp } from 'react-navigation';
 import HistorialTeaser from './HistorialTeaser';
+import { Routes } from '../../Routes';
 
 const S = {
     Layout: styled(View)`
@@ -41,6 +42,10 @@ export default class HistorialList extends React.Component<Props, any> {
         this.props.navigation.openDrawer();
     }
 
+    goToDetalle = (data) => {
+        this.props.navigation.navigate(Routes.HistorialDetalle, data);
+    }
+
   render() {
     return (
       <S.Layout>
@@ -52,7 +57,7 @@ export default class HistorialList extends React.Component<Props, any> {
 
         <ScrollView>
             { this.state.list.map((item) => {
-                return <HistorialTeaser key={item} />
+                return <HistorialTeaser key={item} data={item} onSelect={this.goToDetalle} />
             } )}
         </ScrollView>
 

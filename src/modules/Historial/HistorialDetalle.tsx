@@ -30,9 +30,14 @@ export default class HistorialList extends React.Component<Props, any> {
 
     constructor(props) {
         super(props)
+        this.state = {
+            id: this.props.navigation.state.params._id,
+            totalAmount: this.props.navigation.state.params.amount,
+            payMethod: this.props.navigation.state.params.payment,
+            items: this.props.navigation.state.params.items,
+            date: this.props.navigation.state.params.date
+        }
     }
-
-    state = {}
 
     openMenu = () => {
         this.props.navigation.openDrawer();
@@ -45,19 +50,16 @@ export default class HistorialList extends React.Component<Props, any> {
             <Icon name='menu' onPress={this.openMenu}/>
         </S.Header>
 
-        <S.Title>Compra #02883923</S.Title>
+        <S.Title>Compra #{this.state.id}</S.Title>
 
         <ScrollView>
-          <Text>Fecha</Text>
-          <Text>Importe total</Text>
-          <Text>metodo de pago</Text>
+          <Text>Fecha {this.state.date}</Text>
+          <Text>Importe total {this.state.totalAmount}</Text>
+          <Text>metodo de pago {this.state.payMethod}</Text>
           <Text>Descripcion del pedido</Text>
-          <Text>item1</Text>
-          <Text>precio1</Text>
-          <Text>item2</Text>
-          <Text>precio2</Text>
-          <Text>item3</Text>
-          <Text>precio3</Text>
+          {this.state.items.map((item) => {
+                return <Text>{item.name},{item.price}</Text>
+            })}
         </ScrollView>
 
       </S.Layout>

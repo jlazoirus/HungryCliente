@@ -6,6 +6,7 @@ import SplashScreen from './modules/Splash/SplashScreen';
 import CategoryList from './modules/Categories/CategoryList';
 import Carta from './modules/Restaurant/Restaurant-details/Carta';
 import HistorialList from './modules/Historial/HistorialList';
+import HistorialDetalle from './modules/Historial/HistorialDetalle';
 import Carrito from './modules/Carrito/CarritoList';
 import PaymentsList from './modules/Payments/PaymentList';
 import PaymentForm from './modules/Payments/PaymentForm';
@@ -31,6 +32,8 @@ export const Routes = {
     PaymentsList: 'Métodos de Pago',
     cerrar_session: 'Cerrar Session',
     Historial: 'Historial',
+    HistorialDetalle: 'Detalle de Compra',
+    HistorialList: 'Historial de Compra',
     Carrito: 'Carrito',
     confirmPayment: 'Confirm payment',
     ETAScreen: 'ETA'
@@ -53,7 +56,10 @@ const RoutesApp = createSwitchNavigator({
             [Routes.confirmPayment]: ConfirmPayment,
             [Routes.ETAScreen]: ETAScreen
         }, { headerMode: 'none'}),
-        [Routes.Historial]: HistorialList,
+        [Routes.Historial]: createStackNavigator({
+            [Routes.HistorialList]:HistorialList,
+            [Routes.HistorialDetalle]: HistorialDetalle
+        }, { headerMode: 'none'}),
         [Routes.Payments]: createStackNavigator({
             [Routes.PaymentsList]: PaymentsList,
             [Routes.Payment]: PaymentForm,

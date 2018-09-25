@@ -25,12 +25,16 @@ const S = {
 };
 
 type Props = {
-  key: any
+  key: any,
+  data: any,
+  onSelect: (data)=> void
 }
 
 export default class HistorialTeaser extends React.Component<Props, any> {
 
-
+  selectItem = () => {
+    this.props.onSelect(this.props.data);
+  }
   render() {
     return (
       <S.Card>
@@ -47,7 +51,8 @@ export default class HistorialTeaser extends React.Component<Props, any> {
           <Text>Descripcion del pedido</Text>
         </S.Content>
         <S.ViewMore>
-          <Icon name="arrow-dropright" />
+          <Icon name="arrow-dropright"
+          onPress={this.selectItem} />
         </S.ViewMore>
       </S.Card>
     );
