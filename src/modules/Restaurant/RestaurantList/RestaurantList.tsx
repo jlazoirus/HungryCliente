@@ -52,7 +52,6 @@ class RestaurantList extends React.Component<Props, any> {
                 <Carousel width={screen_width} height={100} images={CarouselImages} />
             </View>
             <S.Title>LUGARES CERCANOS A TI </S.Title>
-            items en el carrito {this.props.items}
             <RestaurantListBody navigate={this.props.navigation.navigate} />
         </S.Layout>
         )
