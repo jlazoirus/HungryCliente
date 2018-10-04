@@ -1,12 +1,14 @@
 import * as React from "react";
 import * as _ from 'lodash';
-
+import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
 import { Icon, Input } from "native-base";
 import { ScrollView, Text, View, Button } from "react-native";
 import styled from "styled-components"
 import { NavigationScreenProp } from 'react-navigation';
 import { PaymentActions } from '../../store/actions/PaymentsActions';
 import { Cards } from '../../mocks/Cards';
+
+// https://github.com/sbycrosz/react-native-credit-card-input
 
 type Props = {
   navigation: NavigationScreenProp<any>;
@@ -56,34 +58,8 @@ class PaymentUpdateForm extends React.Component<Props, State> {
           <Icon name='create' active />
         </S.Header>
         <ScrollView>
-          <S.Card >
-            <S.Content>
-              <Input
-                  style={{ color: "black", fontWeight: "bold" }}
-                  placeholder="Número de tarjeta"
-                  placeholderTextColor='black'
-                  onChangeText={cardNumber => this.setState({ cardNumber })}
-                  value={this.state.cardNumber}/>
-            </S.Content>
-          </S.Card >
-          <S.Card >
-            <S.Content>
-            <Input
-                  style={{ color: "black", fontWeight: "bold" }}
-                  placeholder="Fecha Expiración"
-                  placeholderTextColor='black'
-                  onChangeText={expirationDate => this.setState({ expirationDate })}
-                  value={this.state.expirationDate}
-            />
-            <Input
-                  style={{ color: "black", fontWeight: "bold" }}
-                  placeholder="CVV"
-                  placeholderTextColor='black'
-                  onChangeText={cvv => this.setState({ cvv })}
-                  value={this.state.cvv}
-            />
-            </S.Content>
-          </S.Card>
+          
+          <CreditCardInput  />
           <Button
             onPress={this.saveMethod}
             title="Guardar"
