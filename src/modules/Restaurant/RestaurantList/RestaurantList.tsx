@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { View, Text, Dimensions } from 'react-native';
-import { Icon} from 'native-base';
 import { Carousel } from 'nachos-ui';
 import styled from "styled-components";
 import { NavigationScreenProp } from 'react-navigation';
+import Layout from '../../shared/Layout';
 import RestaurantListBody from './RestaurantListBody';
 import { IStore } from '../../../store/reducers/index';
 import { getCheckoutListArray } from '../../../store/reducers/CarritoReducers';
@@ -18,10 +18,6 @@ const CarouselImages = [
 ]
 
 const S = {
-    Layout: styled(View)`
-        flex: 1;
-        padding-top: 20px;
-    `,
     Header: styled(View)`
         flex-direction: row;
         justify-content: space-between;
@@ -41,19 +37,30 @@ type Props = {
 
 class RestaurantList extends React.Component<Props, any> {
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            categoryId: this.props.navigation.state.params._id,
+            categoryName: this.props.navigation.state.params.name
+        }
+    }
+    onPressArrowBack = () => {
+    this.props.navigation.goBack();
+    }
+    onSearch = () => {
+    }
+
     render() {
         return (
-        <S.Layout>
-            <S.Header>
-                <Icon name='ios-arrow-back' onPress={this.props.navigation.goBack}/>
-                <Icon name='search' />
-            </S.Header>
+        <Layout iconLeft='ios-arrow-back' onPressLeft={this.onPressArrowBack}>
+
             <View style={{width: screen_width, height: 100}}>
                 <Carousel width={screen_width} height={100} images={CarouselImages} />
             </View>
-            <S.Title>LUGARES CERCANOS A TI </S.Title>
+            <S.Title>{this.state.categoryName}</S.Title>
             <RestaurantListBody navigate={this.props.navigation.navigate} />
-        </S.Layout>
+        </Layout>
         )
     }
 }

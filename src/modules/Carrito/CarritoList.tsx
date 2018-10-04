@@ -50,7 +50,7 @@ class CarritoList extends React.Component<Props, any> {
 
     selectPayment = () => {
         this.props.actions.selectPayment(this.props.total);
-        this.props.navigation.navigate(Routes.PaymentsList)
+        this.props.navigation.navigate(Routes.PaymentsList,{isCash: true})
     }
 
     render() {

@@ -22,6 +22,15 @@ export default class Layout extends React.Component<Props, any> {
         onPressRight: (_) => null,
     }
 
+    getHeader = () => {
+        let leftIconEl = this.props.iconLeft ? <Icon name={this.props.iconLeft} onPress={this.props.onPressLeft} /> : null,
+            rightIconEl = this.props.iconRight ? <Icon name={this.props.iconRight} onPress={this.props.onPressRight} /> : null;
+        return <S.Header>
+            {leftIconEl}
+            {rightIconEl}
+        </S.Header>
+    }
+
   render() {
     return (
       <Styled.Layout>
