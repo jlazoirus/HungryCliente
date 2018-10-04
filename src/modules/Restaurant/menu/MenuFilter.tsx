@@ -8,6 +8,9 @@ const S = {
       flex-direction: row;
       justify-content: space-around;
       margin-bottom: 10px;
+    `,
+    Text: styled(Text)`
+      text-align: center;
     `
 };
 
@@ -16,7 +19,7 @@ const filters = [
     { label: "Reservar", icon: "calendar" },
     { label: "Delivery", icon: "paper-plane" }
   ];
-  
+
   export const MenuFilter = ({ currentFilter, onSelectFilter }) => {
     return (
       <S.Options>
@@ -32,7 +35,7 @@ const filters = [
       </S.Options>
     );
   };
-  
+
   const FilterItem = ({ label, icon, active, onPress }) => {
     return (
       <View>
@@ -44,7 +47,7 @@ const filters = [
           color="#aa072a"
           onPress={onPress}
         />
-        <Text>{label}</Text>
+        <S.Text>{label}</S.Text>
       </View>
     );
   };

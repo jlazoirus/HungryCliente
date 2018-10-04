@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { NavigationScreenProp } from 'react-navigation';
 import Layout from '../../shared/Layout';
 import RestaurantListBody from './RestaurantListBody';
+import { IStore } from '../../../store/reducers/index';
+import { getCheckoutListArray } from '../../../store/reducers/CarritoReducers';
+import { connect } from 'react-redux';
 
 const screen_width = Dimensions.get("window").width;
 
@@ -31,7 +34,8 @@ const S = {
 type Props = {
   navigation: NavigationScreenProp<any>;
 }
-export default class RestaurantList extends React.Component<Props, any> {
+
+class RestaurantList extends React.Component<Props, any> {
 
     constructor(props) {
         super(props)
@@ -60,3 +64,8 @@ export default class RestaurantList extends React.Component<Props, any> {
         )
     }
 }
+const mapStateToProps = (state: IStore) => ({
+    items: getCheckoutListArray(state.Carrito)
+})
+
+export default connect(mapStateToProps, null)(RestaurantList);

@@ -10,24 +10,15 @@ import { connect } from 'react-redux';
 import { CarritoActions } from '../../../store/actions/CarritoActions';
 import { MenuFilter } from '../menu/MenuFilter';
 import { Routes } from '../../../Routes';
-
-const S = {
-  Title: styled(Text)`
-    font-size: 20px;
-    padding: 10px;
-  `,
-  Options: styled(View)`
-    flex-direction: row;
-    justify-content: space-around;
-    margin-bottom: 10px;
-  `
-};
+import { getCheckoutListArray } from '../../../store/reducers/CarritoReducers';
+import { IStore } from '../../../store/reducers';
 
 type Props = {
   navigation: NavigationScreenProp<any>;
   actions: {
     [key: string]: Function
-  }
+  },
+  items: any
 };
 
 class Carta extends React.Component<Props, any> {
@@ -75,12 +66,14 @@ class Carta extends React.Component<Props, any> {
         <Layout
             iconLeft="arrow-back"
             iconRight="cart"
+            iconRightNumber={this.props.items.length}
             onPressLeft={this.onPressArrowBack}
-            onPressRight={this.goToCheckout} >
+            onPressRight={this.goToCheckout}
+        >
 
             <Gallery />
 
-            <S.Title>{this.state.name}</S.Title>
+            <Styled.Title>{this.state.name} </Styled.Title>
             
             <ScrollView>
                 <MenuFilter currentFilter={this.state.filter} onSelectFilter={this.updateFilter} />
@@ -101,6 +94,17 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(Carta);
+const mapStateToProps = ({ Carrito = []}: IStore) => ({
+  items: getCheckoutListArray(Carrito)
+})
 
 
+export default connect(mapStateToProps, mapDispatchToProps)(Carta);
+
+
+const Styled = {
+  Title: styled(Text)`
+    font-size: 20px;
+    padding: 10px;
+  `
+};

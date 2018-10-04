@@ -18,6 +18,9 @@ const S = {
         flex: 5;
         padding-left: 10px;
     `,
+    H4: styled(H4)`
+      padding-top: 0px;
+    `,
     ViewMore: styled(View)`
         flex: 1;
         justify-content: center;
@@ -35,7 +38,7 @@ export default class Plate extends React.Component<Props, any> {
   selectPlate = () => {
     this.props.onSelect(this.props.data);
   }
-  
+
   render() {
     return (
       <S.Card>
@@ -46,13 +49,13 @@ export default class Plate extends React.Component<Props, any> {
           />
         </S.Image>
         <S.Content>
-          <H4>{this.props.data.company}</H4>
+          <S.H4>{this.props.data.company}</S.H4>
           <Text>s./ {this.props.data.price}</Text>
           <Text>{this.props.data.about}</Text>
         </S.Content>
         <S.ViewMore>
-          <Icon 
-            name="add-circle"  
+          <Icon
+            name="add-circle"
             onPress={this.selectPlate}/>
         </S.ViewMore>
       </S.Card>

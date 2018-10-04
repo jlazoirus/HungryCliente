@@ -2,8 +2,62 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
+import { Indicator } from 'nachos-ui';
 
-const S = {
+type Props = {
+    onPressLeft: any,
+    onPressRight: any,
+    iconLeft: string,
+    iconRight: string,
+    iconRightNumber: any
+}
+
+export default class Layout extends React.Component<Props, any> {
+
+    static defaultProps = {
+        iconLeft: 'menu',
+        iconRight: 'search',
+        iconRightNumber: 1,
+        onPressLeft: (_) => null,
+        onPressRight: (_) => null,
+    }
+
+    getHeader = () => {
+        let leftIconEl = this.props.iconLeft ? <Icon name={this.props.iconLeft} onPress={this.props.onPressLeft} /> : null,
+            rightIconEl = this.props.iconRight ? <Icon name={this.props.iconRight} onPress={this.props.onPressRight} /> : null;
+        return <S.Header>
+            {leftIconEl}
+            {rightIconEl}
+        </S.Header>
+    }
+
+  render() {
+    return (
+      <Styled.Layout>
+        <Styled.Header>
+          <Icon name={this.props.iconLeft} onPress={this.props.onPressLeft} />
+          <IconCard 
+            name={this.props.iconRight} 
+            onPress={this.props.onPressRight} 
+            value={this.props.iconRightNumber} 
+            />
+        </Styled.Header>
+        { this.props.children }
+      </Styled.Layout>
+    );
+  }
+}
+
+const IconCard = ({name, onPress, value }) => {
+    const icon = <Icon name={name} onPress={onPress} />;
+    
+    if (!value || name !== 'cart') return icon;
+    return <Indicator position='left top' value={value}>{icon}</Indicator>
+    
+}
+
+
+const Styled = {
     Layout: styled(View)`
         flex: 1;
         padding-top: 20px;
@@ -19,41 +73,4 @@ const S = {
         padding: 10px;
 
     `,
-}
-
-type Props = {
-    onPressLeft: any,
-    onPressRight: any,
-    iconLeft: string,
-    iconRight: string,
-}
-
-// todo: Create a Reusable component we can use in all the screens
-export default class Layout extends React.Component<Props, any> {
-
-    static defaultProps = {
-        iconLeft: 'menu',
-        iconRight: '',
-        onPressLeft: (_) => null,
-        onPressRight: (_) => null
-    }
-
-    getHeader = () => {
-        let leftIconEl = this.props.iconLeft ? <Icon name={this.props.iconLeft} onPress={this.props.onPressLeft} /> : null,
-            rightIconEl = this.props.iconRight ? <Icon name={this.props.iconRight} onPress={this.props.onPressRight} /> : null;
-        return <S.Header>
-            {leftIconEl}
-            {rightIconEl}
-        </S.Header>
-    }
-
-  render() {
-    return (
-      <S.Layout>
-        {this.getHeader()}
-
-        { this.props.children }
-      </S.Layout>
-    );
-  }
 }

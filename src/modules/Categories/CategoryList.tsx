@@ -105,7 +105,7 @@ class CategoryList extends React.Component<Props, State> {
                 return <TouchableHighlight onPress={()=>{this.goToCategory(category)}} key={category._id}>
                 <S.Item>
                   <S.Image source={{ uri: category.imgUrl }}></S.Image>
-                  <Text >{category.name}</Text>
+                  <Text>{category.name}</Text>
                 </S.Item>
               </TouchableHighlight>
               })
